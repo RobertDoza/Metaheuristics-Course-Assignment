@@ -34,7 +34,7 @@ constexpr std::string_view default_output_directory = "Output";
 class ModelInstance {
 	public:
 		/* Main constructor for the class. */
-		ModelInstance(const ModelParameters&, const GenerationParameters&);
+		ModelInstance(const ModelParameters&, const GenerationParameters& = default_generation_parameters);
 		
 		/* Function returns a string representation of the instance useful for testing via CPLEX IDE. */
 		std::string to_cplex_string() const;

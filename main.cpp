@@ -3,7 +3,13 @@
 #include "generate.hpp"
 
 int main() {
-	generate_test_instances("Input/parameters_1800.txt");
+	// Example of a test instance
+	ModelInstance instance(
+		//I  J  T   S   p
+		{ 6, 5, 4, 3.2, 1 }
+	);
+
+	generate_cpp_test_instance(instance, "Output");
 
 	return 0;
 }
