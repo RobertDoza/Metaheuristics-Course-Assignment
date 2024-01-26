@@ -19,7 +19,7 @@ $(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp
 	$(CC) $< -c $(CPPFLAGS) -o $@
 
 $(BIN_DIR)/$(TS).o: $(SRC_DIR)/$(TS).cpp $(INC_DIR)/$(TS).hpp
-	$(CC) $< -c $(CPPGLAGS) -o $@
+	$(CC) $< -c $(CPPFLAGS) -o $@
 
 .PHONY: clean
 
