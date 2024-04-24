@@ -1,5 +1,9 @@
 #include <iostream>
 
+#include "solution.hpp"
+
 int main() {
-	std::cout << "Hello, world!\n";
+	Solution s(3, 4);
+	
+	std::cout << s << std::endl;
 }
