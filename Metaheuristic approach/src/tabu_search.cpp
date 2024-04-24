@@ -1,3 +1,3 @@
-#include "../include/tabu_search.hpp"
+#include "tabu_search.hpp"
 
 // TODO

@@ -22,7 +22,7 @@ $(BIN_DIR)/$(MAIN).o: $(SRC_DIR)/$(MAIN).cpp | $(BIN_DIR)
 	$(CC) $< -c $(CPPFLAGS) -o $@
 
 $(BIN_DIR)/$(TS).o: $(SRC_DIR)/$(TS).cpp $(INC_DIR)/$(TS).hpp | $(BIN_DIR)
-	$(CC) $< -c $(CPPFLAGS) -o $@
+	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
 	
 $(BIN_DIR)/$(SOL).o: $(SRC_DIR)/$(SOL).cpp $(INC_DIR)/$(SOL).hpp | $(BIN_DIR)
 	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
