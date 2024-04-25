@@ -21,6 +21,14 @@ std::string Solution::to_string() const {
 	return buffer.str();
 }
 
+std::vector<Solution> get_neighbors() const {
+	std::vector<Solution> neighbors = {};
+	
+	// TODO
+	
+	return neighbors;
+}
+
 std::ostream& operator<< (std::ostream& out, const Solution& s) {
 	out << s.to_string();
 	
