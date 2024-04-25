@@ -1,3 +1,5 @@
 #include "tabu_search.hpp"
 
-// TODO
+void TabuSearch::tabu_search(const Solution& s) {
+	// TODO
+}

@@ -1,5 +1,5 @@
 #pragma once
 
 class TabuSearch {
-	// TODO
+	static void tabu_search(const Solution&);
 };
