@@ -1,5 +1,8 @@
 #pragma once
 
+#include "solution.hpp"
+
 class TabuSearch {
-	static void tabu_search(const Solution&);
+	public:
+		static Solution tabu_search(const Solution&);
 };
