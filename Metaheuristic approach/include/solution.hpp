@@ -15,6 +15,7 @@ class Solution {
 		const int _t;
 		std::vector<bool> _vector;
 		
+		void set_value(int, bool);
 };
 
 std::ostream& operator<< (std::ostream&, const Solution&);

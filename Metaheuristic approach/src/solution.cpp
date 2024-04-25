@@ -20,7 +20,7 @@ Solution::Solution(int j, int t, int p)
 			std::cout << "--> " << random_number << std::endl;
 		}
 		
-		_vector[random_number] = true;
+		set_value(random_number, true);
 	}
 }
 
@@ -50,6 +50,14 @@ std::vector<Solution> Solution::get_neighbors() const {
 void Solution::flip(int i, int j) {
 	_vector[i] = !_vector[i];
 	_vector[j] = !_vector[j];
+}
+
+void Solution::set_value(int i, bool value) {
+	if (i < 0 || i > static_cast<int>(_vector.size()) - 1) {
+		throw std::out_of_range("Index out of bounds!");
+	}
+	
+	_vector[i] = value;
 }
 
 std::ostream& operator<< (std::ostream& out, const Solution& s) {
