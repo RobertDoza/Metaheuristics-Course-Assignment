@@ -8,5 +8,9 @@ int main() {
 	
 	std::cout << s << std::endl;
 	
-	TabuSearch::tabu_search(s);
+	// TabuSearch::tabu_search(s);
+	
+	s.flip(2, 3);
+	
+	std::cout << s << std::endl;
 }

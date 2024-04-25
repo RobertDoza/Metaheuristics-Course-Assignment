@@ -21,12 +21,17 @@ std::string Solution::to_string() const {
 	return buffer.str();
 }
 
-std::vector<Solution> get_neighbors() const {
+std::vector<Solution> Solution::get_neighbors() const {
 	std::vector<Solution> neighbors = {};
 	
 	// TODO
 	
 	return neighbors;
+}
+
+void Solution::flip(int i, int j) {
+	_vector[i] = !_vector[i];
+	_vector[j] = !_vector[j];
 }
 
 std::ostream& operator<< (std::ostream& out, const Solution& s) {
