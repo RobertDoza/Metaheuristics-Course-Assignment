@@ -5,7 +5,7 @@
 
 class Solution {
 	public:
-		Solution(int, int);
+		Solution(int, int, int);
 		std::string to_string() const;
 		
 		void flip(int, int);

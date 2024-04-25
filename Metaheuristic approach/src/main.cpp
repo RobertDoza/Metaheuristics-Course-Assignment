@@ -4,7 +4,7 @@
 #include "tabu_search.hpp"
 
 int main() {
-	Solution s(3, 4);
+	Solution s(3, 4, 5);
 	
 	std::cout << s << std::endl;
 	
