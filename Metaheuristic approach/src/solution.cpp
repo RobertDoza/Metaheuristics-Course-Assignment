@@ -1,22 +1,19 @@
 #include <sstream>
-#include <random>
 #include <iostream>
 
 #include "solution.hpp"
+#include "random.hpp"
 
 Solution::Solution(int j, int t, int p)
 	:_j(j), _t(t), _vector(j * t)
 {
-	int N = j * t - 1;
-	std::random_device rd;
-	std::mt19937 eng(rd());
-	std::uniform_int_distribution<> distr(0, N);
+	int n = j * t - 1;
 	
 	for (int i = 0; i < p; i++) {
-		int random_number = distr(eng);
+		int random_number = RandomGenerator::get_random_number(n);
 		std::cout << random_number << std::endl;
 		while (_vector[random_number]) {
-			random_number = distr(eng);
+			random_number = RandomGenerator::get_random_number(n);
 			std::cout << "--> " << random_number << std::endl;
 		}
 		
