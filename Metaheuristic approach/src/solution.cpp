@@ -58,6 +58,20 @@ std::vector<Solution> Solution::get_neighbors() const {
 	return neighbors;
 }
 
+std::map<int, std::vector<int>> Solution::get_active_nodes() const {
+	std::map<int, std::vector<int>> active_nodes = {};
+
+	for (int t = 0; t < _t; t++) {
+		for (int j = 0; j < _j; j++) {
+			if (_vector[t * _j + j]) {
+				active_nodes[j].push_back(t);
+			}
+		}
+	}
+	
+	return active_nodes;
+}
+
 void Solution::flip(int i, int j) {
 	_vector[i] = !_vector[i];
 	_vector[j] = !_vector[j];

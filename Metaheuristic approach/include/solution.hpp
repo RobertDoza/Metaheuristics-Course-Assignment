@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <ostream>
+#include <map>
 
 class Solution {
 	public:
@@ -10,6 +11,8 @@ class Solution {
 		
 		void flip(int, int);
 		std::vector<Solution> get_neighbors() const;
+		
+		std::map<int, std::vector<int>> get_active_nodes() const;
 	private:
 		const int _j;
 		const int _t;
