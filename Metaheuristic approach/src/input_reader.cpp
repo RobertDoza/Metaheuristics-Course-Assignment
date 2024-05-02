@@ -16,9 +16,11 @@ void InputReader::read_input(const std::string& filename) {
 	int i, j, t, p;
 	double s;
 	
-	if (!(in >> i >> j >> t >> s >> p)) {
-		throw std::runtime_error("Invalid format in the header");
-	}
+	i = read_int(in);
+	j = read_int(in);
+	t = read_int(in);
+	s = read_double(in);
+	p = read_int(in);
 	
 	if (i <= 0 || j <= 0 || t <= 0 || s <= 0.0 || p <= 0) {
 		throw std::runtime_error("Invalid values in the header");
@@ -48,6 +50,50 @@ void InputReader::read_input(const std::string& filename) {
 			std::cout << distance_matrix[_i][_j] << " ";
 		}
 		std::cout << "\n";
+	}
+}
+
+int InputReader::read_int(std::ifstream& in) {
+	std::string token;
+	if (!(in >> token)) {
+		throw std::runtime_error("Error reading integer");
+	}
+
+	try {
+		std::size_t position;
+		int value = std::stoi(token, &position);
+		
+		if (position != token.length()) {
+			throw std::runtime_error("Not an integer");
+		}
+		
+		return value;
+	} catch (const std::invalid_argument& e) {
+		throw std::runtime_error("Invalid integer format");
+	} catch (const std::out_of_range& e) {
+		throw std::runtime_error("Integer out of range");
+	}
+}
+
+double InputReader::read_double(std::ifstream& in) {
+	std::string token;
+	if (!(in >> token)) {
+		throw std::runtime_error("Error reading double");
+	}
+
+	try {
+		std::size_t position;
+		double value = std::stod(token, &position);
+		
+		if (position != token.length()) {
+			throw std::runtime_error("Not a double");
+		}
+		
+		return value;
+	} catch (const std::invalid_argument& e) {
+		throw std::runtime_error("Invalid double format");
+	} catch (const std::out_of_range& e) {
+		throw std::runtime_error("Double out of range");
 	}
 }
 
