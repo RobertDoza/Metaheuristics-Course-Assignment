@@ -42,7 +42,18 @@ std::string Solution::to_string() const {
 std::vector<Solution> Solution::get_neighbors() const {
 	std::vector<Solution> neighbors = {};
 	
-	// TODO
+	for (unsigned i = 0; i < _vector.size(); i++) {
+		if (_vector[i]) {
+			for (unsigned j = 0; j < _vector.size(); j++) {
+				if (!_vector[j] && i != j) {
+					Solution neighbor = *this;
+					neighbor.set_value(i, false);
+					neighbor.set_value(j, true);
+					neighbors.push_back(neighbor);
+				}
+			}
+		}
+	}
 	
 	return neighbors;
 }

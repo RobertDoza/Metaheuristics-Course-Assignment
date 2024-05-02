@@ -8,9 +8,9 @@ int main() {
 	
 	std::cout << s << std::endl;
 	
-	// TabuSearch::tabu_search(s);
-	
-	s.flip(2, 3);
-	
-	std::cout << s << std::endl;
+	int i = 0;
+	for (const auto& n : s.get_neighbors()) {
+		std::cout << ++i << ") ";
+		std::cout << n << std::endl;
+	}
 }
