@@ -1,6 +1,7 @@
 #include "logger.hpp"
 
+#include <iostream>
+
 void log(const std::string &message) {
-	(void) message;
-	// TODO
+	std::cout << message << std::endl;
 }
