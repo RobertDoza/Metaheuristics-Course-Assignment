@@ -17,7 +17,7 @@ Solution::Solution(int j, int t, int p)
 		
 		while (_vector[random_number]) {
 			random_number = RandomGenerator::get_random_number(n);
-			std::cout << "--> " << random_number << std::endl;
+			/// std::cout << "--> " << random_number << std::endl;
 		}
 		
 		set_value(random_number, true);
