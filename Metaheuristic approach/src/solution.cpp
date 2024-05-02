@@ -11,7 +11,10 @@ Solution::Solution(int j, int t, int p)
 	
 	for (int i = 0; i < p; i++) {
 		int random_number = RandomGenerator::get_random_number(n);
-		std::cout << random_number << std::endl;
+		
+		// TODO: remove me
+		// std::cout << random_number << std::endl;
+		
 		while (_vector[random_number]) {
 			random_number = RandomGenerator::get_random_number(n);
 			std::cout << "--> " << random_number << std::endl;
