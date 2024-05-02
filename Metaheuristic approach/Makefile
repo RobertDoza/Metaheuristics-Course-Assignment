@@ -8,6 +8,7 @@ MAIN   = main
 TS     = tabu_search
 SOL    = solution
 RANDOM = random
+LOGGER = logger
 
 CC       = g++
 CPPFLAGS = -Wall -Wextra -Werror -pedantic
@@ -16,6 +17,7 @@ OBJECTS = $(BIN_DIR)/$(MAIN).o \
           $(BIN_DIR)/$(TS).o \
           $(BIN_DIR)/$(SOL).o \
           $(BIN_DIR)/$(RANDOM).o \
+          $(BIN_DIR)/$(LOGGER).o \
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $^ $(CPPFLAGS) -o $@
@@ -30,6 +32,9 @@ $(BIN_DIR)/$(SOL).o: $(SRC_DIR)/$(SOL).cpp $(INC_DIR)/$(SOL).hpp | $(BIN_DIR)
 	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(RANDOM).o:	$(SRC_DIR)/$(RANDOM).cpp $(INC_DIR)/$(RANDOM).hpp | $(BIN_DIR)
+	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
+	
+$(BIN_DIR)/$(LOGGER).o:	$(SRC_DIR)/$(LOGGER).cpp $(INC_DIR)/$(LOGGER).hpp | $(BIN_DIR)
 	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
 
 $(BIN_DIR):
