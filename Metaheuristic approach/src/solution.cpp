@@ -72,6 +72,24 @@ std::map<int, std::vector<int>> Solution::get_active_nodes() const {
 	return active_nodes;
 }
 
+std::vector<std::vector<int>> Solution::get_nodes_per_period() const {
+	std::vector<std::vector<int>> result;
+	
+	for (int t = 0; t < _t; t++) {
+		std::vector<int> nodes;
+		
+		for (int j = 0; j < _j; j++) {
+			if (_vector[t * _j + j]) {
+				nodes.push_back(j);
+			}
+		}
+		
+		result.push_back(nodes);
+	}
+	
+	return result;
+}
+
 void Solution::flip(int i, int j) {
 	_vector[i] = !_vector[i];
 	_vector[j] = !_vector[j];
