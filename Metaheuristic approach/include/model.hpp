@@ -19,7 +19,9 @@ class Model {
 		static Model& get_model();
 		static void create_model(const std::string&);
 		static Solution generate_solution();
+		
 		double calculate_fitness(const Solution&) const;
+		std::string to_string() const;
 	private:
 		static Model model;
 		static bool created;

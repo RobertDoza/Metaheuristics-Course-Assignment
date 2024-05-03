@@ -6,6 +6,8 @@
 
 int main() {
 	Model::create_model("assets/example.txt");
+	
+	std::cout << Model::get_model().to_string() << std::endl;
 
 	Solution s = Model::generate_solution();
 	
