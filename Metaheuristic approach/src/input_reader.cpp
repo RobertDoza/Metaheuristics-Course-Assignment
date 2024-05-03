@@ -1,12 +1,11 @@
 #include "input_reader.hpp"
 
 #include <fstream>
-#include <vector>
 
 // TODO: remove me
 #include <iostream>
 
-void InputReader::read_input(const std::string& filename) {
+ModelParameters InputReader::read_input(const std::string& filename) {
 	std::ifstream in(filename);
 	
 	if (!in.is_open()) {
@@ -26,11 +25,13 @@ void InputReader::read_input(const std::string& filename) {
 		throw std::runtime_error("Invalid values in the header");
 	}
 	
+	/*
 	std::cout << "I = " << i << "\n";
 	std::cout << "J = " << j << "\n";
 	std::cout << "T = " << t << "\n";
 	std::cout << "S = " << s << "\n";
 	std::cout << "p = " << p << "\n";
+	*/
 	
 	std::vector<std::vector<double>> population_matrix(i, std::vector<double>(t));
 	std::vector<std::vector<double>> distance_matrix(i, std::vector<double>(i));
@@ -38,6 +39,7 @@ void InputReader::read_input(const std::string& filename) {
 	read_matrix(in, population_matrix);
 	read_matrix(in, distance_matrix);
 	
+	/*
 	for (int _i = 0; _i < i; _i++) {
 		for (int _t = 0; _t < t; _t++) {
 			std::cout << population_matrix[_i][_t] << " ";
@@ -51,6 +53,9 @@ void InputReader::read_input(const std::string& filename) {
 		}
 		std::cout << "\n";
 	}
+	*/
+	
+	return {i, j, t, s, p, population_matrix, distance_matrix};
 }
 
 int InputReader::read_int(std::ifstream& in) {

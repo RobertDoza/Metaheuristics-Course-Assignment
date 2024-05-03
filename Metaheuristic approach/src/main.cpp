@@ -5,30 +5,29 @@
 #include "input_reader.hpp"
 
 int main() {
-	Solution s(3, 4, 5);
+	auto result = InputReader::read_input("assets/example.txt");
 	
-	std::cout << s << std::endl;
+	std::cout << "I = " << result.i << "\n";
+	std::cout << "J = " << result.j << "\n";
+	std::cout << "T = " << result.t << "\n";
+	std::cout << "S = " << result.s << "\n";
+	std::cout << "p = " << result.p << "\n";
 	
-	/*
-	int i = 0;
-	for (const auto& n : s.get_neighbors()) {
-		std::cout << ++i << ") ";
-		std::cout << n << std::endl;
-	}
-	*/
-	
-	auto active_nodes = s.get_active_nodes();
-	
-	for (const auto& pair : active_nodes) {
-		auto n = pair.first;
-		auto v = pair.second;
-		
-		std::cout << n << ": ";
-		for (const int node : v) {
-			std::cout << node << " ";
+	for (const auto& row : result.population_matrix) {
+		for (const auto p : row) {
+			std::cout << p << "\t";
 		}
 		std::cout << "\n";
 	}
 	
-	// InputReader::read_input("assets/6_5_4_3.2_1.txt");
+	for (const auto& row : result.distance_matrix) {
+		for (const auto d : row) {
+			std::cout << d << "\t";
+		}
+		std::cout << "\n";
+	}
+	
+	Solution s(result.j, result.t, result.p);
+	
+	std::cout << s << std::endl;
 }
