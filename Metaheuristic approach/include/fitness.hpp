@@ -2,9 +2,11 @@
 
 #include <vector>
 
-class FitnessCalculator {
+#include "solution.hpp"
+
+class Model {
 	public:
-		double calculate_fitness(); // TODO
+		double calculate_fitness(const Solution&) const;
 	private:
 		int _i;
 		int _j;
