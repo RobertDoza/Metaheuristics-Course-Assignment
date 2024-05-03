@@ -10,7 +10,7 @@ SOL    = solution
 RANDOM = random
 LOGGER = logger
 INPUT  = input_reader
-FIT    = fitness
+MODEL  = model
 
 CC       = g++
 CPPFLAGS = -Wall -Wextra -Werror -pedantic
@@ -21,7 +21,7 @@ OBJECTS = $(BIN_DIR)/$(MAIN).o \
           $(BIN_DIR)/$(RANDOM).o \
           $(BIN_DIR)/$(LOGGER).o \
           $(BIN_DIR)/$(INPUT).o \
-          $(BIN_DIR)/$(FIT).o \
+          $(BIN_DIR)/$(MODEL).o \
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $^ $(CPPFLAGS) -o $@
@@ -44,7 +44,7 @@ $(BIN_DIR)/$(LOGGER).o:	$(SRC_DIR)/$(LOGGER).cpp $(INC_DIR)/$(LOGGER).hpp | $(BI
 $(BIN_DIR)/$(INPUT).o: $(SRC_DIR)/$(INPUT).cpp $(INC_DIR)/$(INPUT).hpp | $(BIN_DIR)
 	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
 
-$(BIN_DIR)/$(FIT).o: $(SRC_DIR)/$(FIT).cpp $(INC_DIR)/$(FIT).hpp | $(BIN_DIR)
+$(BIN_DIR)/$(MODEL).o: $(SRC_DIR)/$(MODEL).cpp $(INC_DIR)/$(MODEL).hpp | $(BIN_DIR)
 	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
 
 $(BIN_DIR):

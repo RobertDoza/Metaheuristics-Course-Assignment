@@ -1,4 +1,4 @@
-#include "fitness.hpp"
+#include "model.hpp"
 #include "input_reader.hpp"
 
 bool Model::created = false;

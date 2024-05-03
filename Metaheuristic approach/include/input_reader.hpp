@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "fitness.hpp"
+#include "model.hpp"
 
 class InputReader {
 	public:
