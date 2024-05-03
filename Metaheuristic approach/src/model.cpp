@@ -2,6 +2,7 @@
 
 #include "model.hpp"
 #include "input_reader.hpp"
+#include "utils.hpp"
 
 bool Model::created = false;
 Model Model::model;
@@ -29,23 +30,6 @@ Solution Model::generate_solution() {
 double Model::calculate_fitness(const Solution&) const {
 	// TODO
 	return 3.14;
-}
-
-template<typename T>
-std::string matrix_to_string(const std::vector<std::vector<T>>& matrix) {
-	std::stringstream buffer;
-	
-	for (size_t i = 0; i < matrix.size(); i++) {
-		for (const T& elem : matrix[i]) {
-			buffer << elem << "\t";
-		}
-		
-		if (i != matrix.size() - 1) {
-			buffer << "\n";
-		}
-	}
-	
-	return buffer.str();
 }
 
 std::string Model::to_string() const {
