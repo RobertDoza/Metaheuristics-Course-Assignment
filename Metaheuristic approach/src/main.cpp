@@ -5,10 +5,9 @@
 #include "model.hpp"
 
 int main() {
-	Model& model = Model::get_model();
-	(void) model;
+	Model::create_model("assets/example.txt");
+
+	Solution s = Model::generate_solution();
 	
-	// Solution s(result.j, result.t, result.p);
-	
-	// std::cout << s << std::endl;
+	std::cout << s << std::endl;
 }

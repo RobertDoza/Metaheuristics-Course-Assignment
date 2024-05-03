@@ -19,6 +19,11 @@ void Model::create_model(const std::string& filename) {
 	created = true;
 }
 
+Solution Model::generate_solution() {
+	Model& model = get_model();
+	return Solution(model._j, model._t, model._p);
+}
+
 double Model::calculate_fitness(const Solution&) const {
 	// TODO
 	return 3.14;
