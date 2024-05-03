@@ -25,7 +25,6 @@ class Model {
 		static bool created;
 		
 		Model();
-		Model(int, int, int, double, int, const std::vector<std::vector<double>>&, const std::vector<std::vector<double>>&);
 		Model(const Model&) = delete;
 		Model& operator=(const Model&) = delete;
 		void set_parameters(const ModelParameters&);

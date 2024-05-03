@@ -31,10 +31,6 @@ double Model::calculate_fitness(const Solution&) const {
 
 Model::Model() {}
 
-Model::Model(int i, int j, int t, double s, int p, const std::vector<std::vector<double>>& pop, const std::vector<std::vector<double>>& dist)
-	:_i(i), _j(j), _t(t), _s(s), _p(p), _population_matrix(pop), _distance_matrix(dist)
-{}
-
 void Model::set_parameters(const ModelParameters& params) {
 	_i = params.i;
 	_j = params.j;
