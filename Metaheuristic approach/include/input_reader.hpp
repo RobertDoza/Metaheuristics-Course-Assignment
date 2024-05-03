@@ -3,15 +3,7 @@
 #include <string>
 #include <vector>
 
-struct ModelParameters {
-	int i;
-	int j;
-	int t;
-	double s;
-	int p;
-	std::vector<std::vector<double>> population_matrix;
-	std::vector<std::vector<double>> distance_matrix;
-};
+#include "fitness.hpp"
 
 class InputReader {
 	public:
