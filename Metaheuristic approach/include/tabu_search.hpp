@@ -4,5 +4,5 @@
 
 class TabuSearch {
 	public:
-		static Solution tabu_search(const Solution&);
+		static Solution tabu_search();
 };
