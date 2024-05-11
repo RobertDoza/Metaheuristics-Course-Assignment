@@ -40,7 +40,8 @@ double Model::calculate_fitness(const Solution& s) const {
 		std::unordered_set<int> covered_nodes;
 		
 		for (const int node : period) {
-			std::cout << node << " ";
+			// TODO: remove
+			// std::cout << node << " ";
 			
 			for (int i = 0; i < _i; i++) {
 				if (_distance_matrix[node][i] < _s) {
@@ -48,15 +49,19 @@ double Model::calculate_fitness(const Solution& s) const {
 				}
 			}
 		}
-		std::cout << "\n\t";
+		// TODO: remove
+		// std::cout << "\n\t";
 		for (const int covered_node : covered_nodes) {
-			std::cout << "a_{" << covered_node << t << "} ";
+			// TODO: remove
+			// std::cout << "a_{" << covered_node << t << "} ";
 			double value = _population_matrix[covered_node][t];
-			std::cout << "(" << value << ") ";
+			// TODO: remove
+			// std::cout << "(" << value << ") ";
 			sum += value;
 		}
 		
-		std::cout << "\n";
+		// TODO: remove
+		// std::cout << "\n";
 		t++;
 	}
 	
