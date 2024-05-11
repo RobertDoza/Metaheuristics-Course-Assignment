@@ -7,6 +7,9 @@
 class Solution {
 	public:
 		Solution(int, int, int);
+		Solution(const Solution&);
+		Solution& operator= (const Solution&);
+		
 		std::string to_string() const;
 		
 		void flip(int, int);

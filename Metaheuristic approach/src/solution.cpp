@@ -24,6 +24,18 @@ Solution::Solution(int j, int t, int p)
 	}
 }
 
+Solution::Solution(const Solution& other)
+	:_j(other._j), _t(other._t), _vector(other._vector)
+{}
+
+Solution& Solution::operator= (const Solution& other) {
+	if (this != &other) {
+		_vector = other._vector;
+	}
+	
+	return *this;
+}
+
 std::string Solution::to_string() const {
 	std::stringstream buffer;
 	
