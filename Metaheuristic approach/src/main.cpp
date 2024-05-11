@@ -16,12 +16,7 @@ int main() {
 	
 	std::cout << s << std::endl;
 	
-	auto result = s.get_nodes_per_period();
+	double fitness = Model::get_model().calculate_fitness(s);
 	
-	for (const auto& row : result) {
-		for (int n : row) {
-			std::cout << n << " ";
-		}
-		std::cout << "\n";
-	}
+	std::cout << "fitness: " << fitness << "\n";
 }

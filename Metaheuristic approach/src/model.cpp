@@ -27,9 +27,40 @@ Solution Model::generate_solution() {
 	return Solution(model._j, model._t, model._p);
 }
 
-double Model::calculate_fitness(const Solution&) const {
-	// TODO
-	return 3.14;
+#include <iostream> // TODO remove me
+#include <unordered_set>
+
+double Model::calculate_fitness(const Solution& s) const {
+	double sum = 0.0;
+	
+	auto nodes_per_period = s.get_nodes_per_period();
+	
+	int t = 0;
+	for (const auto& period : nodes_per_period) {
+		std::unordered_set<int> covered_nodes;
+		
+		for (const int node : period) {
+			std::cout << node << " ";
+			
+			for (int i = 0; i < _i; i++) {
+				if (_distance_matrix[node][i] < _s) {
+					covered_nodes.insert(i);
+				}
+			}
+		}
+		std::cout << "\n\t";
+		for (const int covered_node : covered_nodes) {
+			std::cout << "a_{" << covered_node << t << "} ";
+			double value = _population_matrix[covered_node][t];
+			std::cout << "(" << value << ") ";
+			sum += value;
+		}
+		
+		std::cout << "\n";
+		t++;
+	}
+	
+	return sum;
 }
 
 std::string Model::to_string() const {
