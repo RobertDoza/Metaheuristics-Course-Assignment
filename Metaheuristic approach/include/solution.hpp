@@ -17,6 +17,8 @@ class Solution {
 		
 		std::map<int, std::vector<int>> get_active_nodes() const;
 		std::vector<std::vector<int>> get_nodes_per_period() const;
+
+		friend class TabuSearch;
 	private:
 		const int _j;
 		const int _t;

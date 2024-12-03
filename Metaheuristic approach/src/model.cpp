@@ -27,10 +27,15 @@ Solution Model::generate_solution() {
 	return Solution(model._j, model._t, model._p);
 }
 
+double Model::calculate_fitness(const Solution& solution) {
+	Model& model = get_model();
+	return model._calculate_fitness(solution);
+}
+
 #include <iostream> // TODO remove me
 #include <unordered_set>
 
-double Model::calculate_fitness(const Solution& s) const {
+double Model::_calculate_fitness(const Solution& s) const {
 	double sum = 0.0;
 	
 	auto nodes_per_period = s.get_nodes_per_period();

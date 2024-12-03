@@ -19,8 +19,8 @@ class Model {
 		static Model& get_model();
 		static void create_model(const std::string&);
 		static Solution generate_solution();
+		static double calculate_fitness(const Solution&);
 		
-		double calculate_fitness(const Solution&) const;
 		std::string to_string() const;
 	private:
 		static Model model;
@@ -30,6 +30,7 @@ class Model {
 		Model(const Model&) = delete;
 		Model& operator=(const Model&) = delete;
 		void set_parameters(const ModelParameters&);
+		double _calculate_fitness(const Solution&) const;
 		
 		int _i;
 		int _j;
