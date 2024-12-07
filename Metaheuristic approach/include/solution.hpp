@@ -19,6 +19,7 @@ class Solution {
 		std::vector<std::vector<int>> get_nodes_per_period() const;
 
 		friend class TabuSearch;
+		friend class NeighborIterator;
 	private:
 		const int _j;
 		const int _t;

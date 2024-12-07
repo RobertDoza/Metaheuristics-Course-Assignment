@@ -4,6 +4,7 @@
 #include "tabu_search.hpp"
 #include "model.hpp"
 #include "tabu_list.hpp"
+#include "neighbor_iterator.hpp"
 
 #define MAX_ITER 20
 
@@ -68,27 +69,28 @@ bool TabuSearch::stopping_condition_met() {
 Solution TabuSearch::get_local_best_solution(const Solution& solution) {
 	Solution local_best_solution = solution;
 	double f_local_best = Model::calculate_fitness(local_best_solution);
-	
-	for (unsigned i = 0; i < solution._vector.size(); i++) {
-		if (!solution._vector[i]) {
-			continue;
+
+	int counter = 0;
+	auto neighbor_iterator = NeighborIterator(solution);
+
+	while (true) {
+		counter++;
+
+		std::optional<Solution> next = neighbor_iterator.get_next();
+
+		if (!next) {
+			break;
 		}
 
-		for (unsigned j = 0; j < solution._vector.size(); j++) {
-			if (solution._vector[j] || i == j) {
-				continue;
-			}
+		auto neighbor = next.value();
 
-			Solution neighbor = solution;
-			neighbor.set_value(i, false);
-			neighbor.set_value(j, true);
-			
-			double fitness = Model::calculate_fitness(neighbor);
+		std::cout << counter << ")" << neighbor << std::endl;
 
-			if (fitness > f_local_best) {
-				local_best_solution = neighbor;
-				f_local_best = fitness;
-			}
+		double fitness = Model::calculate_fitness(neighbor);
+
+		if (fitness > f_local_best) {
+			local_best_solution = neighbor;
+			f_local_best = fitness;
 		}
 	}
 
