@@ -20,6 +20,8 @@ class Solution {
 
 		friend class TabuSearch;
 		friend class NeighborIterator;
+		friend class N1NeighborIterator;
+		friend class N2NeighborIterator;
 	private:
 		const int _j;
 		const int _t;

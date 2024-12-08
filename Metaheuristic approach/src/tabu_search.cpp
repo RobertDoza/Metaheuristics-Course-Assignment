@@ -7,6 +7,7 @@
 #include "neighbor_iterator.hpp"
 
 #define MAX_ITER 20
+// #define TS_LOG
 
 const double negative_infinity = - std::numeric_limits<double>::infinity();
 
@@ -21,21 +22,27 @@ Solution TabuSearch::tabu_search() {
 	
 	Solution current_solution = initial_solution;
 
+	#ifdef TS_LOG
 	std::cout << "Initial solution:" << std::endl;
 	std::cout << best_solution << std::endl;
 	std::cout << "obj: " << f_best << std::endl;
+	#endif
 
 	TabuList::clear();
 
 	while (!stopping_condition_met()) {
+		#ifdef TS_LOG
 		std::cout << "Iteration: " << (iter+1) << std::endl;
+		#endif
 
 		Solution local_best_solution = get_local_best_solution(current_solution);
 
 		double f = Model::calculate_fitness(local_best_solution);
 
+		#ifdef TS_LOG
 		std::cout << "Local best solution: " << local_best_solution << std::endl;
 		std::cout << "Obj: " << f << std::endl;
+		#endif
 
 		if (f > f_best) {
 			best_solution = local_best_solution;
@@ -44,13 +51,17 @@ Solution TabuSearch::tabu_search() {
 
 		TabuList::add(local_best_solution);
 
+		#ifdef TS_LOG
 		std::cout << "Tabu list: " << TabuList::to_string() << std::endl;
+		#endif
 
 		// TODO: update tabu list
 
 		current_solution = local_best_solution;
 
+		#ifdef TS_LOG
 		std::cout << std::endl;
+		#endif
 
 		iter++;
 	}
@@ -71,7 +82,7 @@ Solution TabuSearch::get_local_best_solution(const Solution& solution) {
 	double f_local_best = Model::calculate_fitness(local_best_solution);
 
 	int counter = 0;
-	auto neighbor_iterator = NeighborIterator(solution);
+	auto neighbor_iterator = N2NeighborIterator(solution);
 
 	while (true) {
 		counter++;
@@ -84,7 +95,9 @@ Solution TabuSearch::get_local_best_solution(const Solution& solution) {
 
 		auto neighbor = next.value();
 
+		#ifdef TS_LOG
 		std::cout << counter << ")" << neighbor << std::endl;
+		#endif
 
 		double fitness = Model::calculate_fitness(neighbor);
 
