@@ -18,9 +18,10 @@ class TabuSearcher {
 		static TabuSearcher& get();
 
 		void start();
-		static bool stopping_condition_met();
+		bool stopping_condition_met() const;
 		Solution get_local_best_solution(const Solution&);
 	private:
 		Solution _best_solution;
 		double _best_fitness;
+		unsigned _iteration_counter;
 };

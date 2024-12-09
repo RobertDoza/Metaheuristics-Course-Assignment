@@ -11,8 +11,6 @@
 
 const double negative_infinity = - std::numeric_limits<double>::infinity();
 
-int iter = 0;
-
 TabuSearchResult TabuSearcher::tabu_search() {
 	TabuSearcher& tabu_searcher = get();
 	tabu_searcher.start();
@@ -43,10 +41,11 @@ void TabuSearcher::start() {
 	#endif
 
 	TabuList::clear();
+	_iteration_counter = 0;
 
 	while (!stopping_condition_met()) {
 		#ifdef TS_LOG
-		std::cout << "Iteration: " << (iter+1) << std::endl;
+		std::cout << "Iteration: " << (_iteration_counter + 1) << std::endl;
 		#endif
 
 		Solution local_best_solution = get_local_best_solution(current_solution);
@@ -77,12 +76,12 @@ void TabuSearcher::start() {
 		std::cout << std::endl;
 		#endif
 
-		iter++;
+		_iteration_counter++;
 	}
 }
 
-bool TabuSearcher::stopping_condition_met() {
-	if (iter == MAX_ITER) {
+bool TabuSearcher::stopping_condition_met() const {
+	if (_iteration_counter == MAX_ITER) {
 		return true;
 	}
 	
