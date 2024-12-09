@@ -1,13 +1,18 @@
 #include <sstream>
+#include <algorithm>
 
 #include "tabu_list.hpp"
 
-void TabuList::clear() {
-    get()._clear();
-}
-
 void TabuList::add(const Solution& s) {
     get()._add(s);
+}
+
+bool TabuList::contains(const Solution& s) {
+    return get()._contains(s);
+}
+
+void TabuList::clear() {
+    get()._clear();
 }
 
 std::string TabuList::to_string() {
@@ -30,6 +35,14 @@ void TabuList::_add(const Solution& s) {
     if (_entries.size() > _size) {
         _entries.pop_back();
     }
+}
+
+bool TabuList::_contains(const Solution& solution) {
+    auto it = std::find_if(_entries.begin(), _entries.end(),
+        [&solution](const TabuListEntry& entry) {
+            return entry.solution == solution;
+        });
+    return it != _entries.end();
 }
 
 void TabuList::_clear() {

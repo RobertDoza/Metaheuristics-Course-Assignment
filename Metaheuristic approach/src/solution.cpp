@@ -4,8 +4,12 @@
 #include "solution.hpp"
 #include "random.hpp"
 
-Solution::Solution(int j, int t, int p)
+Solution::Solution(int j , int t)
 	:_j(j), _t(t), _vector(j * t)
+{}
+
+Solution::Solution(int j, int t, int p)
+	: _j(j), _t(t), _vector(j * t)
 {
 	int n = j * t - 1;
 	
@@ -34,6 +38,14 @@ Solution& Solution::operator= (const Solution& other) {
 	}
 	
 	return *this;
+}
+
+bool Solution::operator==(const Solution& other) const {
+	if (this->_j != other._j || this->_t != other._t) {
+		return false;
+	}
+
+    return this->_vector == other._vector;
 }
 
 std::string Solution::to_string() const {

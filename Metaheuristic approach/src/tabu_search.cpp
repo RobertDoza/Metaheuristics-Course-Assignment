@@ -13,12 +13,26 @@ const double negative_infinity = - std::numeric_limits<double>::infinity();
 
 int iter = 0;
 
-Solution TabuSearch::tabu_search() {
-	// generate initial solution
-	Solution initial_solution = Model::generate_solution();
+TabuSearchResult TabuSearcher::tabu_search() {
+	TabuSearcher& tabu_searcher = get();
+	tabu_searcher.start();
+	return {tabu_searcher._best_solution, tabu_searcher._best_fitness};
+}
+
+TabuSearcher::TabuSearcher()
+	:_best_solution(Model::generate_empty_solution()), _best_fitness(negative_infinity)
+{}
+
+TabuSearcher& TabuSearcher::get() {
+    static TabuSearcher tabu_searcher;
+	return tabu_searcher;
+}
+
+void TabuSearcher::start() {
+	Solution initial_solution = Model::generate_random_solution();
 	
-	Solution best_solution = initial_solution;
-	double f_best = Model::calculate_fitness(best_solution);
+	_best_solution = initial_solution;
+	_best_fitness = Model::calculate_fitness(_best_solution);
 	
 	Solution current_solution = initial_solution;
 
@@ -37,16 +51,16 @@ Solution TabuSearch::tabu_search() {
 
 		Solution local_best_solution = get_local_best_solution(current_solution);
 
-		double f = Model::calculate_fitness(local_best_solution);
+		double fitness = Model::calculate_fitness(local_best_solution);
 
 		#ifdef TS_LOG
 		std::cout << "Local best solution: " << local_best_solution << std::endl;
-		std::cout << "Obj: " << f << std::endl;
+		std::cout << "Obj: " << fitness << std::endl;
 		#endif
 
-		if (f > f_best) {
-			best_solution = local_best_solution;
-			f_best = f;
+		if (fitness > _best_fitness) {
+			_best_solution = local_best_solution;
+			_best_fitness = fitness;
 		}
 
 		TabuList::add(local_best_solution);
@@ -65,11 +79,9 @@ Solution TabuSearch::tabu_search() {
 
 		iter++;
 	}
-	
-	return best_solution;
 }
 
-bool TabuSearch::stopping_condition_met() {
+bool TabuSearcher::stopping_condition_met() {
 	if (iter == MAX_ITER) {
 		return true;
 	}
@@ -77,9 +89,9 @@ bool TabuSearch::stopping_condition_met() {
 	return false;
 }
 
-Solution TabuSearch::get_local_best_solution(const Solution& solution) {
+Solution TabuSearcher::get_local_best_solution(const Solution& solution) {
 	Solution local_best_solution = solution;
-	double f_local_best = Model::calculate_fitness(local_best_solution);
+	double local_best_fitness = Model::calculate_fitness(local_best_solution);
 
 	int counter = 0;
 	auto neighbor_iterator = N2NeighborIterator(solution);
@@ -101,9 +113,14 @@ Solution TabuSearch::get_local_best_solution(const Solution& solution) {
 
 		double fitness = Model::calculate_fitness(neighbor);
 
-		if (fitness > f_local_best) {
+		if (fitness > local_best_fitness) {
 			local_best_solution = neighbor;
-			f_local_best = fitness;
+			local_best_fitness = fitness;
+		}
+
+		if (TabuList::contains(neighbor)) {
+			std::cout << "Skipping neighbor " /*<< neighbor*/ << std::endl;
+			continue;
 		}
 	}
 

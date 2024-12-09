@@ -22,9 +22,14 @@ void Model::create_model(const std::string& filename) {
 	created = true;
 }
 
-Solution Model::generate_solution() {
+Solution Model::generate_random_solution() {
 	Model& model = get_model();
 	return Solution(model._j, model._t, model._p);
+}
+
+Solution Model::generate_empty_solution() {
+	Model& model = get_model();
+    return Solution(model._j, model._t);
 }
 
 double Model::calculate_fitness(const Solution& solution) {

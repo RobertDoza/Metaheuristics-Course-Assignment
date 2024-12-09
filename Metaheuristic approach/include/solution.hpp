@@ -6,9 +6,12 @@
 
 class Solution {
 	public:
+		Solution(int, int);
 		Solution(int, int, int);
 		Solution(const Solution&);
 		Solution& operator= (const Solution&);
+
+		bool operator==(const Solution&) const;
 		
 		std::string to_string() const;
 		
@@ -18,7 +21,7 @@ class Solution {
 		std::map<int, std::vector<int>> get_active_nodes() const;
 		std::vector<std::vector<int>> get_nodes_per_period() const;
 
-		friend class TabuSearch;
+		friend class TabuSearcher;
 		friend class NeighborIterator;
 		friend class N1NeighborIterator;
 		friend class N2NeighborIterator;

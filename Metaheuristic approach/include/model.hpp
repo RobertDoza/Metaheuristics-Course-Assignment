@@ -18,7 +18,8 @@ class Model {
 	public:
 		static Model& get_model();
 		static void create_model(const std::string&);
-		static Solution generate_solution();
+		static Solution generate_random_solution();
+		static Solution generate_empty_solution();
 		static double calculate_fitness(const Solution&);
 		
 		std::string to_string() const;

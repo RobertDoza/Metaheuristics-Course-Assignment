@@ -13,8 +13,9 @@ struct TabuListEntry {
 
 class TabuList {
     public:
-        static void clear();
         static void add(const Solution&);
+        static bool contains(const Solution&);
+        static void clear();
         static std::string to_string();
     private:
         static TabuList& get();
@@ -22,6 +23,7 @@ class TabuList {
         TabuList(const TabuList&) = delete;
         TabuList& operator=(const TabuList&) = delete;
         void _add(const Solution&);
+        bool _contains(const Solution&);
         void _clear();
         std::string _to_string() const;
     private:

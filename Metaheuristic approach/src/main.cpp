@@ -17,10 +17,10 @@ int main(int argc, char** argv) {
 	RandomGenerator::set_seed(123);
 	Model::create_model(filepath);
 	
-	Solution result = TabuSearch::tabu_search();
+	auto [result, fitness] = TabuSearcher::tabu_search();
 
 	std::cout << "Best solution: " << result << std::endl;
-	std::cout << "Obj: " << Model::calculate_fitness(result) << std::endl;
+	std::cout << "Obj: " << fitness << std::endl;
 
 	return 0;
 }

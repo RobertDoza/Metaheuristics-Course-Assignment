@@ -2,10 +2,25 @@
 
 #include "solution.hpp"
 
-class TabuSearch {
+struct TabuSearchResult {
+	Solution solution;
+	double fitness;
+};
+
+class TabuSearcher {
 	public:
-		static Solution tabu_search();
+		static TabuSearchResult tabu_search();
 	private:
-		static Solution get_local_best_solution(const Solution&);
+		TabuSearcher();
+		TabuSearcher(const TabuSearcher&) = delete;
+		TabuSearcher& operator=(const TabuSearcher&) = delete;
+
+		static TabuSearcher& get();
+
+		void start();
 		static bool stopping_condition_met();
+		Solution get_local_best_solution(const Solution&);
+	private:
+		Solution _best_solution;
+		double _best_fitness;
 };
