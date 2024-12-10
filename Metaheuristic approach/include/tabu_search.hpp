@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 #include "solution.hpp"
 
 struct TabuSearchResult {
@@ -19,7 +21,7 @@ class TabuSearcher {
 
 		void start();
 		bool stopping_condition_met() const;
-		Solution get_local_best_solution(const Solution&);
+		std::optional<Solution> get_local_best_solution(const Solution&);
 	private:
 		Solution _best_solution;
 		double _best_fitness;

@@ -48,7 +48,15 @@ void TabuSearcher::start() {
 		std::cout << "Iteration: " << (_iteration_counter + 1) << std::endl;
 		#endif
 
-		Solution local_best_solution = get_local_best_solution(current_solution);
+		std::optional<Solution> local_search_result = get_local_best_solution(current_solution);
+
+		Solution local_best_solution = Model::generate_empty_solution();
+
+		if (local_search_result.has_value()) {
+			local_best_solution = local_search_result.value();
+		} else {
+			// TODO: handle case when local search didn't find any solutions
+		}
 
 		double fitness = Model::calculate_fitness(local_best_solution);
 
@@ -88,9 +96,10 @@ bool TabuSearcher::stopping_condition_met() const {
 	return false;
 }
 
-Solution TabuSearcher::get_local_best_solution(const Solution& solution) {
-	Solution local_best_solution = solution;
-	double local_best_fitness = Model::calculate_fitness(local_best_solution);
+std::optional<Solution> TabuSearcher::get_local_best_solution(const Solution& solution) {
+	Solution local_best_solution = Model::generate_empty_solution();
+	double local_best_fitness = negative_infinity;
+	bool found_improvement = false;
 
 	int counter = 0;
 	auto neighbor_iterator = N2NeighborIterator(solution);
@@ -111,17 +120,33 @@ Solution TabuSearcher::get_local_best_solution(const Solution& solution) {
 		#endif
 
 		double fitness = Model::calculate_fitness(neighbor);
+		
+		if (TabuList::contains(neighbor)) {
+			if (fitness > _best_fitness) {
+				local_best_solution = neighbor;
+				local_best_fitness = fitness;
+				found_improvement = true;
+				
+				TabuList::remove(neighbor);
+
+				std::cout << "Aspiration criterion met!" << std::endl;
+				continue;
+			}
+
+			std::cout << "Skipping neighbor " /*<< neighbor*/ << std::endl;
+			continue;
+		}
 
 		if (fitness > local_best_fitness) {
 			local_best_solution = neighbor;
 			local_best_fitness = fitness;
-		}
-
-		if (TabuList::contains(neighbor)) {
-			std::cout << "Skipping neighbor " /*<< neighbor*/ << std::endl;
-			continue;
+			found_improvement = true;
 		}
 	}
 
-	return local_best_solution;
+	if (found_improvement) {
+		return local_best_solution;
+	}
+	
+	return std::nullopt;
 }
