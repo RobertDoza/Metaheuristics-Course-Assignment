@@ -15,6 +15,10 @@ void TabuList::clear() {
     get()._clear();
 }
 
+void TabuList::remove(const Solution& s) {
+    get()._remove(s);
+}
+
 std::string TabuList::to_string() {
     return get()._to_string();
 }
@@ -49,6 +53,15 @@ void TabuList::_clear() {
     _entries.clear();
 }
 
+void TabuList::_remove(const Solution& solution) {
+    _entries.erase(std::remove_if(_entries.begin(), _entries.end(),
+        [&solution](const TabuListEntry& entry) {
+            return entry.solution == solution;
+        }),
+        _entries.end()
+    );
+}
+
 std::string TabuList::_to_string() const {
     std::size_t size = _entries.size();
 
@@ -64,6 +77,19 @@ std::string TabuList::_to_string() const {
         buffer << _entries[i].order << ")" << _entries[i].solution << ",\n";
     }
     buffer <<  _entries[size - 1].order << ")" << _entries[size - 1].solution << "\n";
+
+    // buffer << "]";
+    buffer << "]\n";
+
+    buffer << "[";
+
+    size_t i;
+    for (i = 0; i < size; i++) {
+        buffer << "#";
+    }
+    for (; i < TABU_LIST_SIZE; i++) {
+        buffer << " ";
+    }
 
     buffer << "]";
 
