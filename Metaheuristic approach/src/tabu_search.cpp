@@ -128,12 +128,18 @@ std::optional<Solution> TabuSearcher::get_local_best_solution(const Solution& so
 				found_improvement = true;
 				
 				TabuList::remove(neighbor);
-
+				
+				#ifdef TS_LOG
 				std::cout << "Aspiration criterion met!" << std::endl;
+				#endif
+
 				continue;
 			}
 
+			#ifdef TS_LOG
 			std::cout << "Skipping neighbor " /*<< neighbor*/ << std::endl;
+			#endif
+
 			continue;
 		}
 
