@@ -1,4 +1,5 @@
 #include "neighbor_iterator.hpp"
+#include "random.hpp"
 
 NeighborIterator::NeighborIterator(const Solution& solution)
     :_original_solution(solution)
@@ -104,5 +105,53 @@ void N2NeighborIterator::_advance_to_next() {
             _advance_to_next();
         }
         return;
+    }
+}
+
+N3NeighborIterator::N3NeighborIterator(const Solution& solution)
+    :NeighborIterator(solution)
+{}
+
+N3NeighborIterator::N3NeighborIterator(const Solution& solution, const std::size_t size_active, const std::size_t size_inactive)
+    :NeighborIterator(solution),
+    _active_node_indices(RandomGenerator::pick_k_elements(solution.get_active_node_indices(), size_active)),
+    _inactive_node_indices(RandomGenerator::pick_k_elements(solution.get_inactive_node_indices(), size_inactive)),
+    _i(0), _j(0), _active_node_index(0), _inactive_node_index(0)
+{}
+
+std::optional<Solution> N3NeighborIterator::get_next() {
+    _advance_to_next();
+
+    if (!_has_next) {
+        return std::nullopt;
+    }
+
+    Solution neighbor = _original_solution;
+    neighbor.set_value(_active_node_index, false);
+    neighbor.set_value(_inactive_node_index, true);
+
+    return neighbor;
+}
+
+void N3NeighborIterator::_advance_to_next() {
+    while (true) {
+        if (_j >= _inactive_node_indices.size()) {
+            _j = 0;
+            _i++;
+            if (_i >= _active_node_indices.size()) {
+                _has_next = false;
+                return;
+            }
+        }
+
+        _active_node_index = _active_node_indices[_i];
+        _inactive_node_index = _inactive_node_indices[_j];
+        
+        _j++;
+
+        if (_original_solution._vector[_active_node_index] == true && _original_solution._vector[_inactive_node_index] == false) {
+            _has_next = true;
+            return;
+        }
     }
 }

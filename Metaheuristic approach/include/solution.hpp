@@ -28,6 +28,7 @@ class Solution {
 		friend class NeighborIterator;
 		friend class N1NeighborIterator;
 		friend class N2NeighborIterator;
+		friend class N3NeighborIterator;
 	private:
 		const int _j;
 		const int _t;

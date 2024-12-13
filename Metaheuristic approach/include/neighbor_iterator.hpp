@@ -40,5 +40,17 @@ class N2NeighborIterator : public NeighborIterator {
 };
 
 class N3NeighborIterator : public NeighborIterator {
-    // TODO: implement
+    public:
+        N3NeighborIterator(const Solution&);
+        N3NeighborIterator(const Solution&, const std::size_t, const std::size_t);
+        std::optional<Solution> get_next() override;
+    private:
+        void _advance_to_next() override;
+    private:
+        std::vector<unsigned> _active_node_indices;
+        std::vector<unsigned> _inactive_node_indices;
+        std::size_t _i;
+        std::size_t _j;
+        std::size_t _active_node_index;
+        std::size_t _inactive_node_index;
 };
