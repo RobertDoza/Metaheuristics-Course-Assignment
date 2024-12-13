@@ -1,6 +1,7 @@
 #pragma once
 
 #include <random>
+#include <unordered_set>
 
 class RandomGenerator {
 	public:
@@ -8,6 +9,9 @@ class RandomGenerator {
 		static unsigned get_seed();
 		
 		static int get_random_number(int);
+
+		static std::vector<unsigned> pick_k_elements(const std::vector<unsigned>&, const unsigned);
+		static unsigned pick_random(const std::vector<unsigned>&);
 	private:
 		std::mt19937 _generator;
 		unsigned _seed;
