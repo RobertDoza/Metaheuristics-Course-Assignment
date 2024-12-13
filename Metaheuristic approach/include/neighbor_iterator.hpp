@@ -38,3 +38,7 @@ class N2NeighborIterator : public NeighborIterator {
         std::size_t _to_turn_off;
         std::size_t _to_turn_on;
 };
+
+class N3NeighborIterator : public NeighborIterator {
+    // TODO: implement
+};
