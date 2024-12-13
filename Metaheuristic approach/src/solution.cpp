@@ -114,6 +114,30 @@ std::vector<std::vector<int>> Solution::get_nodes_per_period() const {
 	return result;
 }
 
+std::vector<unsigned> Solution::get_active_node_indices() const {
+	std::vector<unsigned> active_node_indices;
+
+	for (std::size_t i = 0; i < _vector.size(); i++) {
+		if (_vector[i] == true) {
+			active_node_indices.push_back(i);
+		}
+	}
+
+	return active_node_indices;
+}
+
+std::vector<unsigned> Solution::get_inactive_node_indices() const {
+    std::vector<unsigned> inactive_node_indices;
+
+	for (std::size_t i = 0; i < _vector.size(); i++) {
+		if (_vector[i] == false) {
+			inactive_node_indices.push_back(i);
+		}
+	}
+
+	return inactive_node_indices;
+}
+
 void Solution::flip(int i, int j) {
 	_vector[i] = !_vector[i];
 	_vector[j] = !_vector[j];

@@ -21,6 +21,9 @@ class Solution {
 		std::map<int, std::vector<int>> get_active_nodes() const;
 		std::vector<std::vector<int>> get_nodes_per_period() const;
 
+		std::vector<unsigned> get_active_node_indices() const;
+		std::vector<unsigned> get_inactive_node_indices() const;
+
 		friend class TabuSearcher;
 		friend class NeighborIterator;
 		friend class N1NeighborIterator;
