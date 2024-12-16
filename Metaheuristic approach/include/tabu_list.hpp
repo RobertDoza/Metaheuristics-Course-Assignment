@@ -3,6 +3,7 @@
 #include <deque>
 
 #include "solution.hpp"
+#include "movement.hpp"
 
 #define TABU_LIST_SIZE 10
 #define MOV_TL_SIZE 15
@@ -33,11 +34,6 @@ class TabuList {
         std::size_t _size;
         std::size_t _counter;
         std::deque<TabuListEntry> _entries;
-};
-
-struct Movement {
-    unsigned deactivated_facility;
-    unsigned activated_facility;
 };
 
 class MovementTabuList {
