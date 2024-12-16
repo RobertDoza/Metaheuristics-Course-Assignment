@@ -33,3 +33,10 @@ class TabuList {
         std::size_t _counter;
         std::deque<TabuListEntry> _entries;
 };
+
+struct Movement {
+    unsigned deactivated_facility;
+    unsigned activated_facility;
+};
+
+class MovementTabuList {};
