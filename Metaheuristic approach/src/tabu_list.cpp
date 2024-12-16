@@ -95,3 +95,87 @@ std::string TabuList::_to_string() const {
 
     return buffer.str();
 }
+
+void MovementTabuList::add(const Movement& movement) {
+    _get()._add(movement);
+}
+
+bool MovementTabuList::contains(const Movement& movement) {
+    return _get()._contains(movement);
+}
+
+void MovementTabuList::clear() {
+    _get()._clear();
+}
+
+void MovementTabuList::remove(const Movement& movement) {
+    _get()._remove(movement);
+}
+
+std::string MovementTabuList::to_string() {
+    return _get()._to_string();
+}
+
+MovementTabuList& MovementTabuList::_get() {
+    static MovementTabuList tabu_list;
+    return tabu_list;
+}
+
+MovementTabuList::MovementTabuList()
+    :_size(MOV_TL_SIZE)
+{}
+
+void MovementTabuList::_add(const Movement& movement) {
+    _entries.push_front(movement);
+
+    if (_entries.size() > _size) {
+        _entries.pop_back();
+    }
+}
+
+bool MovementTabuList::_contains(const Movement& movement) {
+    auto it = std::find(_entries.begin(), _entries.end(), movement);
+    return it != _entries.end();
+}
+
+void MovementTabuList::_clear() {
+    _entries.clear();
+}
+
+void MovementTabuList::_remove(const Movement& movement) {
+    _entries.erase(std::remove(_entries.begin(), _entries.end(), movement), _entries.end());
+}
+
+std::string MovementTabuList::_to_string() const {
+    std::size_t size = _entries.size();
+
+    if (size == 0) {
+        return "<empty>";
+    }
+
+    std::stringstream buffer;
+
+    buffer << "[\n";
+
+    for (size_t i = 0; i < size - 1; i++) {
+        buffer << _entries[i] << ",\n";
+    }
+    buffer <<  _entries[size - 1] << "\n";
+
+    // buffer << "]";
+    buffer << "]\n";
+
+    buffer << "[";
+
+    size_t i;
+    for (i = 0; i < size; i++) {
+        buffer << "#";
+    }
+    for (; i < MOV_TL_SIZE; i++) {
+        buffer << " ";
+    }
+
+    buffer << "]";
+
+    return buffer.str();
+}
