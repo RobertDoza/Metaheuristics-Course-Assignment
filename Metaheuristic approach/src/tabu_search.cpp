@@ -36,8 +36,8 @@ void TabuSearcher::start() {
 
 	#ifdef TS_LOG
 	std::cout << "Initial solution:" << std::endl;
-	std::cout << best_solution << std::endl;
-	std::cout << "obj: " << f_best << std::endl;
+	std::cout << _best_solution << std::endl;
+	std::cout << "obj: " << _best_fitness << std::endl;
 	#endif
 
 	TabuList::clear();
