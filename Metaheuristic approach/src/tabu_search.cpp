@@ -40,7 +40,8 @@ void TabuSearcher::start() {
 	std::cout << "obj: " << _best_fitness << std::endl;
 	#endif
 
-	TabuList::clear();
+	// TabuList::clear();
+	MovementTabuList::clear();
 	_iteration_counter = 0;
 
 	while (!stopping_condition_met()) {
@@ -73,10 +74,12 @@ void TabuSearcher::start() {
 			_best_fitness = fitness;
 		}
 
-		TabuList::add(local_best_solution);
+		// TabuList::add(local_best_solution);
+		MovementTabuList::add(movement_to_local_best);
 
 		#ifdef TS_LOG
-		std::cout << "Tabu list: " << TabuList::to_string() << std::endl;
+		// std::cout << "Tabu list: " << TabuList::to_string() << std::endl;
+		std::cout << "(Movement) tabu list: " << MovementTabuList::to_string() << std::endl;
 		#endif
 
 		// TODO: update tabu list
@@ -125,14 +128,16 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 
 		double fitness = Model::calculate_fitness(neighbor);
 		
-		if (TabuList::contains(neighbor)) {
+		// if (TabuList::contains(neighbor)) {
+		if (MovementTabuList::contains(movement_to_neighbor)) {
 			if (fitness > _best_fitness) {
 				local_best_solution = neighbor;
 				local_best_fitness = fitness;
 				movement_to_local_best = movement_to_neighbor;
 				found_improvement = true;
 				
-				TabuList::remove(neighbor);
+				// TabuList::remove(neighbor);
+				MovementTabuList::remove(movement_to_neighbor);
 				
 				#ifdef TS_LOG
 				std::cout << "Aspiration criterion met!" << std::endl;

@@ -8,7 +8,6 @@ struct Movement {
     unsigned long activated_facility;
 
     bool operator==(const Movement&) const;
-
     std::string to_string() const;
 };
 
