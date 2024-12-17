@@ -60,7 +60,11 @@ void TabuSearcher::start() {
 			local_best_solution = result.solution;
 			movement_to_local_best = result.movement;
 		} else {
-			// TODO: handle case when local search didn't find any solutions
+			local_best_solution = Model::generate_random_solution();
+			// TODO: movement_to_local_best = ...
+			#ifdef TS_LOG
+			std::cout << "No local best found. Generating random solution..." << std::endl;
+			#endif
 		}
 
 		double fitness = Model::calculate_fitness(local_best_solution);
