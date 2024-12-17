@@ -47,6 +47,7 @@ void TabuSearcher::start() {
 	while (!stopping_condition_met()) {
 		#ifdef TS_LOG
 		std::cout << "Iteration: " << (_iteration_counter + 1) << std::endl;
+		std::cout << "Current solution: " << current_solution << std::endl;
 		#endif
 
 		std::optional<LocalSearchResult> local_search_result = get_local_best_solution(current_solution);
@@ -103,6 +104,10 @@ bool TabuSearcher::stopping_condition_met() const {
 }
 
 std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Solution& solution) {
+	#ifdef TS_LOG
+	std::cout << "Local search - start" << std::endl;
+	#endif
+
 	Solution local_best_solution = Model::generate_empty_solution();
 	double local_best_fitness = negative_infinity;
 	Movement movement_to_local_best;
@@ -123,7 +128,9 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 		auto [neighbor, movement_to_neighbor] = next.value();
 
 		#ifdef TS_LOG
-		std::cout << counter << ")" << neighbor << std::endl;
+		std::cout << "Neighbor " << counter << ")" << std::endl;
+		std::cout << movement_to_neighbor << std::endl;
+		std::cout << neighbor << std::endl;
 		#endif
 
 		double fitness = Model::calculate_fitness(neighbor);
@@ -147,7 +154,7 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 			}
 
 			#ifdef TS_LOG
-			std::cout << "Skipping neighbor " /*<< neighbor*/ << std::endl;
+			std::cout << "Skipping neighbor " << neighbor << std::endl;
 			#endif
 
 			continue;
@@ -160,6 +167,10 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 			found_improvement = true;
 		}
 	}
+
+	#ifdef TS_LOG
+	std::cout << "Local search - end" << std::endl;
+	#endif
 
 	if (found_improvement) {
 		return LocalSearchResult{local_best_solution, movement_to_local_best};
