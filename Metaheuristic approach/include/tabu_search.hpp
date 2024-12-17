@@ -3,10 +3,16 @@
 #include <optional>
 
 #include "solution.hpp"
+#include "movement.hpp"
 
 struct TabuSearchResult {
 	Solution solution;
 	double fitness;
+};
+
+struct LocalSearchResult {
+	Solution solution;
+	Movement movement;
 };
 
 class TabuSearcher {
@@ -21,7 +27,7 @@ class TabuSearcher {
 
 		void start();
 		bool stopping_condition_met() const;
-		std::optional<Solution> get_local_best_solution(const Solution&);
+		std::optional<LocalSearchResult> get_local_best_solution(const Solution&);
 	private:
 		Solution _best_solution;
 		double _best_fitness;

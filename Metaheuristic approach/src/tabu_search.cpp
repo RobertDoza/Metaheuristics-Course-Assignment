@@ -48,12 +48,15 @@ void TabuSearcher::start() {
 		std::cout << "Iteration: " << (_iteration_counter + 1) << std::endl;
 		#endif
 
-		std::optional<Solution> local_search_result = get_local_best_solution(current_solution);
+		std::optional<LocalSearchResult> local_search_result = get_local_best_solution(current_solution);
 
 		Solution local_best_solution = Model::generate_empty_solution();
+		Movement movement_to_local_best;
 
 		if (local_search_result.has_value()) {
-			local_best_solution = local_search_result.value();
+			auto result = local_search_result.value();
+			local_best_solution = result.solution;
+			movement_to_local_best = result.movement;
 		} else {
 			// TODO: handle case when local search didn't find any solutions
 		}
@@ -96,9 +99,10 @@ bool TabuSearcher::stopping_condition_met() const {
 	return false;
 }
 
-std::optional<Solution> TabuSearcher::get_local_best_solution(const Solution& solution) {
+std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Solution& solution) {
 	Solution local_best_solution = Model::generate_empty_solution();
 	double local_best_fitness = negative_infinity;
+	Movement movement_to_local_best;
 	bool found_improvement = false;
 
 	int counter = 0;
@@ -125,6 +129,7 @@ std::optional<Solution> TabuSearcher::get_local_best_solution(const Solution& so
 			if (fitness > _best_fitness) {
 				local_best_solution = neighbor;
 				local_best_fitness = fitness;
+				movement_to_local_best = movement_to_neighbor;
 				found_improvement = true;
 				
 				TabuList::remove(neighbor);
@@ -146,12 +151,13 @@ std::optional<Solution> TabuSearcher::get_local_best_solution(const Solution& so
 		if (fitness > local_best_fitness) {
 			local_best_solution = neighbor;
 			local_best_fitness = fitness;
+			movement_to_local_best = movement_to_neighbor;
 			found_improvement = true;
 		}
 	}
 
 	if (found_improvement) {
-		return local_best_solution;
+		return LocalSearchResult{local_best_solution, movement_to_local_best};
 	}
 	
 	return std::nullopt;
