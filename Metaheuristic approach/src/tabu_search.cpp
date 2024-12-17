@@ -107,13 +107,13 @@ std::optional<Solution> TabuSearcher::get_local_best_solution(const Solution& so
 	while (true) {
 		counter++;
 
-		std::optional<Solution> next = neighbor_iterator.get_next();
+		std::optional<NeighborIterationResult> next = neighbor_iterator.get_next();
 
 		if (!next) {
 			break;
 		}
 
-		auto neighbor = next.value();
+		auto [neighbor, movement_to_neighbor] = next.value();
 
 		#ifdef TS_LOG
 		std::cout << counter << ")" << neighbor << std::endl;

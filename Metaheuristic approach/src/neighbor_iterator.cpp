@@ -9,7 +9,7 @@ N1NeighborIterator::N1NeighborIterator(const Solution& solution)
     :NeighborIterator(solution), _i(0), _j(0)
 {}
 
-std::optional<Solution> N1NeighborIterator::get_next() {
+std::optional<NeighborIterationResult> N1NeighborIterator::get_next() {
     _advance_to_next();
 
     if (!_has_next) {
@@ -20,7 +20,7 @@ std::optional<Solution> N1NeighborIterator::get_next() {
     neighbor.set_value(_i, false);
     neighbor.set_value(_j, true);
 
-    return neighbor;
+    return NeighborIterationResult{neighbor, Movement{_i, _j}};
 }
 
 void N1NeighborIterator::_advance_to_next() {
@@ -46,7 +46,7 @@ N2NeighborIterator::N2NeighborIterator(const Solution& solution)
     :NeighborIterator(solution), _position(0)
 {}
 
-std::optional<Solution> N2NeighborIterator::get_next() {
+std::optional<NeighborIterationResult> N2NeighborIterator::get_next() {
     _advance_to_next();
 
     if (!_has_next) {
@@ -57,7 +57,7 @@ std::optional<Solution> N2NeighborIterator::get_next() {
     neighbor.set_value(_to_turn_off, false);
     neighbor.set_value(_to_turn_on, true);
 
-    return neighbor;
+    return NeighborIterationResult{neighbor, Movement{_to_turn_off, _to_turn_on}};
 }
 
 void N2NeighborIterator::_advance_to_next() {
@@ -119,7 +119,7 @@ N3NeighborIterator::N3NeighborIterator(const Solution& solution, const std::size
     _i(0), _j(0), _active_node_index(0), _inactive_node_index(0)
 {}
 
-std::optional<Solution> N3NeighborIterator::get_next() {
+std::optional<NeighborIterationResult> N3NeighborIterator::get_next() {
     _advance_to_next();
 
     if (!_has_next) {
@@ -130,7 +130,7 @@ std::optional<Solution> N3NeighborIterator::get_next() {
     neighbor.set_value(_active_node_index, false);
     neighbor.set_value(_inactive_node_index, true);
 
-    return neighbor;
+    return NeighborIterationResult{neighbor, Movement{_active_node_index, _inactive_node_index}};
 }
 
 void N3NeighborIterator::_advance_to_next() {

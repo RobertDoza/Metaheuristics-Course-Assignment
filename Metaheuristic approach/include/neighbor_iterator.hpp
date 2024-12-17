@@ -3,10 +3,16 @@
 #include <optional>
 
 #include "solution.hpp"
+#include "movement.hpp"
+
+struct NeighborIterationResult {
+    Solution neighbor;
+    Movement movement_to_neighbor;
+};
 
 class NeighborIterator {
     public:
-        virtual std::optional<Solution> get_next() = 0;
+        virtual std::optional<NeighborIterationResult> get_next() = 0;
     protected:
         NeighborIterator(const Solution&);
     private:
@@ -19,7 +25,7 @@ class NeighborIterator {
 class N1NeighborIterator : public NeighborIterator {
     public:
         N1NeighborIterator(const Solution&);
-        std::optional<Solution> get_next() override;
+        std::optional<NeighborIterationResult> get_next() override;
     private:
         void _advance_to_next() override;
     private:
@@ -30,7 +36,7 @@ class N1NeighborIterator : public NeighborIterator {
 class N2NeighborIterator : public NeighborIterator {
     public:
         N2NeighborIterator(const Solution&);
-        std::optional<Solution> get_next() override;
+        std::optional<NeighborIterationResult> get_next() override;
     private:
         void _advance_to_next() override;
     private:
@@ -43,7 +49,7 @@ class N3NeighborIterator : public NeighborIterator {
     public:
         N3NeighborIterator(const Solution&);
         N3NeighborIterator(const Solution&, const std::size_t, const std::size_t);
-        std::optional<Solution> get_next() override;
+        std::optional<NeighborIterationResult> get_next() override;
     private:
         void _advance_to_next() override;
     private:
