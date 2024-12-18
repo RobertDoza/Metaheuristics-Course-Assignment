@@ -55,6 +55,10 @@ std::string Model::to_string() {
     return _get_model()._to_string();
 }
 
+int Model::get_target_num_sites() {
+    return _get_model()._parameters.target_num_sites;
+}
+
 Model& Model::_get_model() {
 	if (!_created) {
 		throw std::logic_error("Model not created");
