@@ -5,39 +5,34 @@
 #include "solution.hpp"
 
 struct ModelParameters {
-	int i;
-	int j;
-	int t;
-	double s;
-	int p;
+	int num_demand_nodes;
+	int num_eligible_sites;
+	int num_time_periods;
+	double coverage_radius;
+	int target_num_sites;
 	std::vector<std::vector<double>> population_matrix;
 	std::vector<std::vector<double>> distance_matrix;
+
+	std::string to_string() const;
 };
 
 class Model {
 	public:
-		static Model& get_model();
 		static void create_model(const std::string&);
 		static Solution generate_random_solution();
 		static Solution generate_empty_solution();
 		static double calculate_fitness(const Solution&);
-		
-		std::string to_string() const;
+		static std::string to_string();
 	private:
-		static Model model;
-		static bool created;
-		
+		static Model& _get_model();
 		Model();
 		Model(const Model&) = delete;
 		Model& operator=(const Model&) = delete;
-		void set_parameters(const ModelParameters&);
+		void _set_parameters(const ModelParameters&);
 		double _calculate_fitness(const Solution&) const;
-		
-		int _i;
-		int _j;
-		int _t;
-		double _s;
-		int _p;
-		std::vector<std::vector<double>> _population_matrix;
-		std::vector<std::vector<double>> _distance_matrix;
+		std::string _to_string() const;
+	private:
+		static Model _model;
+		static bool _created;
+		ModelParameters _parameters;
 };

@@ -1,44 +1,72 @@
 #include <sstream>
+#include <unordered_set>
 
 #include "model.hpp"
 #include "input_reader.hpp"
 #include "utils.hpp"
 
-bool Model::created = false;
-Model Model::model;
+bool Model::_created = false;
+Model Model::_model;
 
-Model& Model::get_model() {
-	if (!created) {
-		throw std::logic_error("Model not created");
-	}
-	return model;
+std::string ModelParameters::to_string() const {
+    std::stringstream buffer;
+	
+	buffer << "Parameters:\n";
+	buffer << "I = " << num_demand_nodes << ", ";
+	buffer << "J = " << num_eligible_sites << ", ";
+	buffer << "T = " << num_time_periods << ", ";
+	buffer << "S = " << coverage_radius << ", ";
+	buffer << "p = " << target_num_sites << "\n";
+	
+	buffer << "Population matrix:\n";
+	buffer << matrix_to_string(population_matrix);
+	
+	buffer << "\n";
+	
+	buffer << "Distance matrix:\n";
+	buffer << matrix_to_string(distance_matrix);
+	
+	return buffer.str();
 }
 
 void Model::create_model(const std::string& filename) {
 	ModelParameters parameters = InputReader::read_input(filename);
 	
-	model.set_parameters(parameters);
+	_model._set_parameters(parameters);
 	
-	created = true;
+	_created = true;
 }
 
 Solution Model::generate_random_solution() {
-	Model& model = get_model();
-	return Solution(model._j, model._t, model._p);
+	Model& model = _get_model();
+	return Solution(model._parameters.num_eligible_sites, model._parameters.num_time_periods, model._parameters.target_num_sites);
 }
 
 Solution Model::generate_empty_solution() {
-	Model& model = get_model();
-    return Solution(model._j, model._t);
+	Model& model = _get_model();
+    return Solution(model._parameters.num_eligible_sites, model._parameters.num_time_periods);
 }
 
 double Model::calculate_fitness(const Solution& solution) {
-	Model& model = get_model();
-	return model._calculate_fitness(solution);
+	return _get_model()._calculate_fitness(solution);
 }
 
-#include <iostream> // TODO remove me
-#include <unordered_set>
+std::string Model::to_string() {
+    return _get_model()._to_string();
+}
+
+Model& Model::_get_model() {
+	if (!_created) {
+		throw std::logic_error("Model not created");
+	}
+	return _model;
+}
+
+Model::Model() {}
+
+void Model::_set_parameters(const ModelParameters& params) {
+	_parameters = params;
+}
 
 double Model::_calculate_fitness(const Solution& s) const {
 	double sum = 0.0;
@@ -50,63 +78,24 @@ double Model::_calculate_fitness(const Solution& s) const {
 		std::unordered_set<int> covered_nodes;
 		
 		for (const int node : period) {
-			// TODO: remove
-			// std::cout << node << " ";
-			
-			for (int i = 0; i < _i; i++) {
-				if (_distance_matrix[node][i] < _s) {
+			for (int i = 0; i < _parameters.num_demand_nodes; i++) {
+				if (_parameters.distance_matrix[node][i] < _parameters.coverage_radius ) {
 					covered_nodes.insert(i);
 				}
 			}
 		}
-		// TODO: remove
-		// std::cout << "\n\t";
+
 		for (const int covered_node : covered_nodes) {
-			// TODO: remove
-			// std::cout << "a_{" << covered_node << t << "} ";
-			double value = _population_matrix[covered_node][t];
-			// TODO: remove
-			// std::cout << "(" << value << ") ";
+			double value = _parameters.population_matrix[covered_node][t];
 			sum += value;
 		}
 		
-		// TODO: remove
-		// std::cout << "\n";
 		t++;
 	}
 	
 	return sum;
 }
 
-std::string Model::to_string() const {
-	std::stringstream buffer;
-	
-	buffer << "Parameters:\n";
-	buffer << "I = " << _i << ", ";
-	buffer << "J = " << _j << ", ";
-	buffer << "T = " << _t << ", ";
-	buffer << "S = " << _s << ", ";
-	buffer << "p = " << _p << "\n";
-	
-	buffer << "Population matrix:\n";
-	buffer << matrix_to_string(_population_matrix);
-	
-	buffer << "\n";
-	
-	buffer << "Distance matrix:\n";
-	buffer << matrix_to_string(_distance_matrix);
-	
-	return buffer.str();
-}
-
-Model::Model() {}
-
-void Model::set_parameters(const ModelParameters& params) {
-	_i = params.i;
-	_j = params.j;
-	_t = params.t;
-	_s = params.s;
-	_p = params.p;
-	_population_matrix = params.population_matrix;
-	_distance_matrix = params.distance_matrix;
+std::string Model::_to_string() const {
+	return _parameters.to_string();
 }
