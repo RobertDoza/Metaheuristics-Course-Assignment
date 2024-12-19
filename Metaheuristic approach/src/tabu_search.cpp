@@ -6,7 +6,6 @@
 #include "tabu_list.hpp"
 #include "neighbor_iterator.hpp"
 
-#define MAX_ITER 20
 #define TS_LOG
 
 const double negative_infinity = - std::numeric_limits<double>::infinity();

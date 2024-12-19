@@ -5,6 +5,8 @@
 #include "solution.hpp"
 #include "movement.hpp"
 
+#define MAX_ITER 20
+
 struct TabuSearchResult {
 	Solution solution;
 	double fitness;
