@@ -3,6 +3,7 @@
 #include "random.hpp"
 #include "model.hpp"
 #include "tabu_search.hpp"
+#include "tabu_list.hpp"
 
 void test_tabu_search(const std::string&);
 
@@ -26,6 +27,8 @@ void test_tabu_search(const std::string& instance_filepath) {
 	
 	auto [result, fitness] = TabuSearcher::tabu_search();
 
+	std::cout << "MAX ITER: " << MAX_ITER << std::endl;
+	std::cout << "MOV TL size: " << MOV_TL_SIZE << std::endl;
 	std::cout << "Best solution: " << result << std::endl;
 	std::cout << "Obj: " << fitness << std::endl;
 }
