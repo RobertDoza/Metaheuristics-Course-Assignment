@@ -5,8 +5,8 @@
 #include "solution.hpp"
 #include "movement.hpp"
 
-#define TABU_LIST_SIZE 10
-#define MOV_TL_SIZE 15
+constexpr unsigned TABU_LIST_SIZE = 10;
+constexpr unsigned MOV_TL_SIZE = 1500;
 
 struct TabuListEntry {
     Solution solution;
