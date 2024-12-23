@@ -116,6 +116,10 @@ std::string MovementTabuList::to_string() {
     return _get()._to_string();
 }
 
+std::string MovementTabuList::fullness_bar() {
+    return _get()._fullness_bar();
+}
+
 MovementTabuList& MovementTabuList::_get() {
     static MovementTabuList tabu_list;
     return tabu_list;
@@ -175,6 +179,24 @@ std::string MovementTabuList::_to_string() const {
         buffer << " ";
     }
 
+    buffer << "]";
+
+    return buffer.str();
+}
+
+std::string MovementTabuList::_fullness_bar() const {
+    std::stringstream buffer;
+    
+    std::size_t size = _entries.size();
+    size_t i;
+
+    buffer << "[";
+    for (i = 0; i < size; i++) {
+        buffer << "#";
+    }
+    for (; i < MOV_TL_SIZE; i++) {
+        buffer << " ";
+    }
     buffer << "]";
 
     return buffer.str();

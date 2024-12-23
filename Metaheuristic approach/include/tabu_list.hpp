@@ -43,6 +43,7 @@ class MovementTabuList {
         static void clear();
         static void remove(const Movement&);
         static std::string to_string();
+        static std::string fullness_bar();
     private:
         static MovementTabuList& _get();
         MovementTabuList();
@@ -53,6 +54,7 @@ class MovementTabuList {
         void _clear();
         void _remove(const Movement&);
         std::string _to_string() const;
+        std::string _fullness_bar() const;
     private:
         std::size_t _size;
         std::deque<Movement> _entries;

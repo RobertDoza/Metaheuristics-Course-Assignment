@@ -89,6 +89,7 @@ void TabuSearcher::start() {
 		#ifdef TS_LOG
 		// std::cout << "Tabu list: " << TabuList::to_string() << std::endl;
 		std::cout << "(Movement) tabu list: ";
+		std::cout << MovementTabuList::fullness_bar();
 		// std::cout << MovementTabuList::to_string();
 		std::cout << std::endl;
 		#endif
