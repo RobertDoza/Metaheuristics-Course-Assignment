@@ -138,6 +138,14 @@ std::vector<unsigned> Solution::get_inactive_node_indices() const {
 	return inactive_node_indices;
 }
 
+void Solution::move_random_facility() {
+	unsigned i = RandomGenerator::pick_random(get_active_node_indices());
+	unsigned j = RandomGenerator::pick_random(get_inactive_node_indices());
+
+	_vector[i] = false;
+	_vector[j] = true;
+}
+
 void Solution::flip(int i, int j) {
 	_vector[i] = !_vector[i];
 	_vector[j] = !_vector[j];
