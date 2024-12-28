@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 }
 
 void test_tabu_search(const std::string& instance_filepath) {
-	std::cout << instance_filepath << std::endl;
+	// std::cout << instance_filepath << std::endl;
 
 	RandomGenerator::set_seed(123);
 	Model::create_model(instance_filepath);
