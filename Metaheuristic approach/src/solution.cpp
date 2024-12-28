@@ -146,6 +146,19 @@ void Solution::move_random_facility() {
 	_vector[j] = true;
 }
 
+void Solution::move_k_facilities(const unsigned k) {
+	auto active = RandomGenerator::pick_k_elements(get_active_node_indices(), k);
+	auto inactive = RandomGenerator::pick_k_elements(get_inactive_node_indices(), k);
+
+	for (const auto a : active) {
+		_vector[a] = false;
+	}
+
+	for (const auto i : inactive) {
+		_vector[i] = true;
+	}
+}
+
 void Solution::flip(int i, int j) {
 	_vector[i] = !_vector[i];
 	_vector[j] = !_vector[j];

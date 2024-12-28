@@ -25,6 +25,7 @@ class Solution {
 		std::vector<unsigned> get_inactive_node_indices() const;
 
 		void move_random_facility();
+		void move_k_facilities(const unsigned);
 
 		friend class TabuSearcher;
 		friend class NeighborIterator;
