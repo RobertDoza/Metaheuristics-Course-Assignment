@@ -46,13 +46,17 @@ void TabuSearcher::start() {
 
 	while (!stopping_condition_met()) {
 		#ifdef TS_LOG
-		std::cout << "Iteration: " << (_iteration_counter + 1) << std::endl;
-		std::cout << "Current solution: ";
+		std::cout << "Iteration: " << _iteration_counter << std::endl;
+		// std::cout << "Current solution: ";
 		// std::cout << current_solution;
 		std::cout << std::endl;
 		#endif
 
 		std::optional<LocalSearchResult> local_search_result = get_local_best_solution(current_solution);
+
+		#ifdef TS_LOG
+		std::cout << std::endl;
+		#endif
 
 		Solution local_best_solution = Model::generate_empty_solution();
 		Movement movement_to_local_best;
@@ -72,10 +76,10 @@ void TabuSearcher::start() {
 		double fitness = Model::calculate_fitness(local_best_solution);
 
 		#ifdef TS_LOG
-		std::cout << "Local best solution: ";
+		// std::cout << "Local best solution: ";
 		// std::cout << local_best_solution;
-		std::cout << std::endl;
-		std::cout << "Obj: " << fitness << std::endl;
+		// std::cout << std::endl;
+		// std::cout << "Obj: " << fitness << std::endl;
 		#endif
 
 		if (fitness > _best_fitness) {
@@ -88,8 +92,8 @@ void TabuSearcher::start() {
 
 		#ifdef TS_LOG
 		// std::cout << "Tabu list: " << TabuList::to_string() << std::endl;
-		std::cout << "(Movement) tabu list: ";
-		std::cout << MovementTabuList::fullness_bar();
+		// std::cout << "(Movement) tabu list: ";
+		// std::cout << MovementTabuList::fullness_bar();
 		// std::cout << MovementTabuList::to_string();
 		std::cout << std::endl;
 		#endif
