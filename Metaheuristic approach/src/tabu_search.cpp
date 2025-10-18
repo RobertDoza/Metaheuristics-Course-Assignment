@@ -9,6 +9,7 @@
 #define TS_LOG
 
 const double negative_infinity = - std::numeric_limits<double>::infinity();
+constexpr const unsigned max_iter_without_improvement = 100;
 
 TabuSearchResult TabuSearcher::tabu_search() {
 	TabuSearcher& tabu_searcher = get();
@@ -43,8 +44,12 @@ void TabuSearcher::start() {
 	// TabuList::clear();
 	MovementTabuList::clear();
 	_iteration_counter = 0;
+	unsigned iteration_of_improvement;
+	unsigned iterations_since_last_improvement = 0;
 
 	while (!stopping_condition_met()) {
+		_iteration_counter++;
+
 		#ifdef TS_LOG
 		std::cout << "Iteration: " << _iteration_counter << std::endl;
 		// std::cout << "Current solution: ";
@@ -85,6 +90,13 @@ void TabuSearcher::start() {
 		if (fitness > _best_fitness) {
 			_best_solution = local_best_solution;
 			_best_fitness = fitness;
+			iteration_of_improvement = _iteration_counter;
+			iterations_since_last_improvement = 0;
+			#ifdef TS_LOG
+			std::cout << "Found improvement!" << std::endl;
+			#endif
+		} else {
+			iterations_since_last_improvement++;
 		}
 
 		// TabuList::add(local_best_solution);
@@ -106,8 +118,20 @@ void TabuSearcher::start() {
 		std::cout << std::endl;
 		#endif
 
-		_iteration_counter++;
+		if (iterations_since_last_improvement >= max_iter_without_improvement) {
+			#ifdef TS_LOG
+			std::cout << "Iterations since improvement reached " << std::to_string(max_iter_without_improvement) << " - shaking..." << std::endl;
+			#endif
+			// current_solution.move_k_facilities(30);
+			current_solution = Model::generate_random_solution();
+			iterations_since_last_improvement = 0;
+		}
 	}
+
+	#ifdef TS_LOG
+	std::cout << std::endl;
+	std::cout << "Last improvement in iteration: " << iteration_of_improvement << std::endl;
+	#endif
 }
 
 bool TabuSearcher::stopping_condition_met() const {
