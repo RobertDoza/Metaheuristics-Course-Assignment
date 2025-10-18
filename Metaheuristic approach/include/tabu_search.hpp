@@ -5,7 +5,7 @@
 #include "solution.hpp"
 #include "movement.hpp"
 
-constexpr unsigned MAX_ITER = 20;
+constexpr unsigned MAX_ITER = 1000;
 
 struct TabuSearchResult {
 	Solution solution;
