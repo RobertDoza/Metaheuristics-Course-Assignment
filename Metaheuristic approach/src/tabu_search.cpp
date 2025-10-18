@@ -120,7 +120,7 @@ bool TabuSearcher::stopping_condition_met() const {
 
 std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Solution& solution) {
 	#ifdef TS_LOG
-	std::cout << "Local search - start" << std::endl;
+	// std::cout << "Local search - start" << std::endl;
 	#endif
 
 	Solution local_best_solution = Model::generate_empty_solution();
@@ -143,7 +143,7 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 		auto [neighbor, movement_to_neighbor] = next.value();
 
 		#ifdef TS_LOG
-		// std::cout << "Neighbor " << counter << ")" << std::endl;
+		std::cout << "\rNeighbor: " << counter;// << std::endl;
 		// std::cout << movement_to_neighbor << std::endl;
 		// std::cout << neighbor << std::endl;
 		#endif
@@ -170,7 +170,7 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 
 			#ifdef TS_LOG
 			std::cout << "Skipping neighbor ";
-			std::cout << neighbor;
+			//std::cout << neighbor;
 			std::cout << std::endl;
 			#endif
 
@@ -186,7 +186,7 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 	}
 
 	#ifdef TS_LOG
-	std::cout << "Local search - end" << std::endl;
+	// std::cout << "Local search - end" << std::endl;
 	#endif
 
 	if (found_improvement) {
