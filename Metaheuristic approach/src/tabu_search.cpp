@@ -44,7 +44,7 @@ void TabuSearcher::start() {
 	// TabuList::clear();
 	MovementTabuList::clear();
 	_iteration_counter = 0;
-	unsigned iteration_of_improvement;
+	unsigned iteration_of_last_improvement;
 	unsigned iterations_since_last_improvement = 0;
 
 	while (!stopping_condition_met()) {
@@ -90,7 +90,7 @@ void TabuSearcher::start() {
 		if (fitness > _best_fitness) {
 			_best_solution = local_best_solution;
 			_best_fitness = fitness;
-			iteration_of_improvement = _iteration_counter;
+			iteration_of_last_improvement = _iteration_counter;
 			iterations_since_last_improvement = 0;
 			#ifdef TS_LOG
 			std::cout << "Found improvement!" << std::endl;
@@ -130,7 +130,7 @@ void TabuSearcher::start() {
 
 	#ifdef TS_LOG
 	std::cout << std::endl;
-	std::cout << "Last improvement in iteration: " << iteration_of_improvement << std::endl;
+	std::cout << "Last improvement in iteration: " << iteration_of_last_improvement << std::endl;
 	#endif
 }
 
