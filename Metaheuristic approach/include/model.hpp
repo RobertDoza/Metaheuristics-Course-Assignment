@@ -23,7 +23,7 @@ class Model {
 		static Solution generate_empty_solution();
 		static double calculate_fitness(const Solution&);
 		static std::string to_string();
-		static int get_target_num_sites();
+        static ModelParameters get_parameters();
 	private:
 		static Model& _get_model();
 		Model();

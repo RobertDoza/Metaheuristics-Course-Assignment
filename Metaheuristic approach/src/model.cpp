@@ -55,8 +55,8 @@ std::string Model::to_string() {
     return _get_model()._to_string();
 }
 
-int Model::get_target_num_sites() {
-    return _get_model()._parameters.target_num_sites;
+ModelParameters Model::get_parameters() {
+    return _get_model()._parameters;
 }
 
 Model& Model::_get_model() {
