@@ -6,11 +6,11 @@
 #include "tabu_list.hpp"
 #include "neighbor_iterator.hpp"
 #include "timer.hpp"
+#include "parameters.hpp"
 
 #define TS_LOG
 
 const double negative_infinity = - std::numeric_limits<double>::infinity();
-constexpr const unsigned max_iter_without_improvement = 50;
 
 TabuSearchResult TabuSearcher::tabu_search() {
 	TabuSearcher& tabu_searcher = get();
@@ -124,9 +124,9 @@ void TabuSearcher::start() {
 		std::cout << std::endl;
 		#endif
 
-		if (iterations_since_last_improvement >= max_iter_without_improvement) {
+		if (iterations_since_last_improvement >= meta_parameters.max_iter_without_improvement) {
 			#ifdef TS_LOG
-			std::cout << "Iterations since improvement reached " << std::to_string(max_iter_without_improvement) << " - shaking..." << std::endl;
+			std::cout << "Iterations since improvement reached " << std::to_string(meta_parameters.max_iter_without_improvement) << " - shaking..." << std::endl;
 			#endif
 			// current_solution.move_k_facilities(30);
 			current_solution = Model::generate_random_solution();
@@ -141,7 +141,7 @@ void TabuSearcher::start() {
 }
 
 bool TabuSearcher::stopping_condition_met() const {
-	if (_iteration_counter == MAX_ITER) {
+	if (_iteration_counter == meta_parameters.max_iterations) {
 		return true;
 	}
 	

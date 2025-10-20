@@ -5,9 +5,6 @@
 #include "solution.hpp"
 #include "movement.hpp"
 
-// TODO: make configurable
-constexpr unsigned MAX_ITER = 200;
-
 struct TabuSearchResult {
 	Solution solution;
 	double fitness;

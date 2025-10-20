@@ -1,4 +1,4 @@
 #include "parameters.hpp"
 
-// TODO
+MetaParameters meta_parameters;
 

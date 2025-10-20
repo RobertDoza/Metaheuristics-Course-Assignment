@@ -5,6 +5,11 @@
 #include "tabu_search.hpp"
 #include "tabu_list.hpp"
 #include "timer.hpp"
+#include "parameters.hpp"
+
+constexpr const unsigned max_iterations = 200;
+constexpr const unsigned movement_tabu_list_size = 20;
+constexpr const unsigned max_iter_without_improvement = 50;
 
 void test_tabu_search(const std::string&);
 
@@ -13,6 +18,12 @@ int main(int argc, char** argv) {
 		std::cout << "Usage: " << argv[0] << " <path>" << std::endl;
 		return 1;
 	}
+
+    meta_parameters = MetaParameters{
+        max_iterations,
+        movement_tabu_list_size,
+        max_iter_without_improvement
+    };
 
 	std::string instance_filepath = argv[1];
 	test_tabu_search(instance_filepath);
@@ -31,8 +42,8 @@ void test_tabu_search(const std::string& instance_filepath) {
     global_timer.start(600);
 	auto [result, fitness, timeout_reached] = TabuSearcher::tabu_search();
 
-	std::cout << "MAX ITER: " << MAX_ITER << std::endl;
-	std::cout << "MOV TL size: " << MOV_TL_SIZE << std::endl;
+	std::cout << "MAX ITER: " << meta_parameters.max_iterations << std::endl;
+	std::cout << "MOV TL size: " << meta_parameters.movement_tabu_list_size << std::endl;
 	std::cout << "Best solution: " << result << std::endl;
 	std::cout << "Obj: " << fitness << std::endl;
     std::cout << "Timeout reached: " << (timeout_reached ? "yes" : "no") << std::endl;

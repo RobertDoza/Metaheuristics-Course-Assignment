@@ -2,6 +2,7 @@
 #include <algorithm>
 
 #include "tabu_list.hpp"
+#include "parameters.hpp"
 
 void TabuList::add(const Solution& s) {
     get()._add(s);
@@ -126,7 +127,7 @@ MovementTabuList& MovementTabuList::_get() {
 }
 
 MovementTabuList::MovementTabuList()
-    :_size(MOV_TL_SIZE)
+    :_size(meta_parameters.movement_tabu_list_size)
 {}
 
 void MovementTabuList::_add(const Movement& movement) {
@@ -175,7 +176,7 @@ std::string MovementTabuList::_to_string() const {
     for (i = 0; i < size; i++) {
         buffer << "#";
     }
-    for (; i < MOV_TL_SIZE; i++) {
+    for (; i < meta_parameters.movement_tabu_list_size; i++) {
         buffer << " ";
     }
 
@@ -194,7 +195,7 @@ std::string MovementTabuList::_fullness_bar() const {
     for (i = 0; i < size; i++) {
         buffer << "#";
     }
-    for (; i < MOV_TL_SIZE; i++) {
+    for (; i < meta_parameters.movement_tabu_list_size; i++) {
         buffer << " ";
     }
     buffer << "]";
