@@ -159,12 +159,9 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 	bool found_improvement = false;
 
 	int counter = 0;
-	int p = Model::get_parameters().target_num_sites;
-    int t = Model::get_parameters().num_time_periods;
-    int j = Model::get_parameters().num_eligible_sites;
-    int p1 = (int) (p * meta_parameters.local_search_parameter_multiplier_1);
+    int p1 = meta_parameters.ls_active_nodes;
     std::cout << p1 << std::endl;
-    int p2 = (int) ((j * t - p) * meta_parameters.local_search_parameter_multiplier_2);
+    int p2 = meta_parameters.ls_inactive_nodes;
     std::cout << p2 << std::endl;
 	auto neighbor_iterator = N3NeighborIterator(solution, p1, p2);
 
