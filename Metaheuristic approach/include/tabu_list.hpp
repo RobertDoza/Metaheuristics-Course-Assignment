@@ -6,7 +6,7 @@
 #include "movement.hpp"
 
 constexpr unsigned TABU_LIST_SIZE = 10;
-constexpr unsigned MOV_TL_SIZE = 15;
+constexpr unsigned MOV_TL_SIZE = 20;
 
 struct TabuListEntry {
     Solution solution;
