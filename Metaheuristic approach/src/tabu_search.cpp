@@ -160,7 +160,13 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 
 	int counter = 0;
 	int p = Model::get_parameters().target_num_sites;
-	auto neighbor_iterator = N3NeighborIterator(solution, 8, p / 4);
+    int t = Model::get_parameters().num_time_periods;
+    int j = Model::get_parameters().num_eligible_sites;
+    int p1 = (int) (p * 0.125);
+    std::cout << p1 << std::endl;
+    int p2 = (int) ((j * t - p) * 0.037);
+    std::cout << p2 << std::endl;
+	auto neighbor_iterator = N3NeighborIterator(solution, p1, p2);
 
 	while (true) {
 		counter++;
