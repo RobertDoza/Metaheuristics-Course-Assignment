@@ -10,7 +10,7 @@
 #define TS_LOG
 
 const double negative_infinity = - std::numeric_limits<double>::infinity();
-constexpr const unsigned max_iter_without_improvement = 100;
+constexpr const unsigned max_iter_without_improvement = 50;
 
 TabuSearchResult TabuSearcher::tabu_search() {
 	TabuSearcher& tabu_searcher = get();
