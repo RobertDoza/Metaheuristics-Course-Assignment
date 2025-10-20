@@ -79,21 +79,15 @@ double Model::_calculate_fitness(const Solution& s) const {
 	
 	int t = 0;
 	for (const auto& period : nodes_per_period) {
-		std::unordered_set<int> covered_nodes;
-		
-		for (const int node : period) {
-			for (int i = 0; i < _parameters.num_demand_nodes; i++) {
-				if (_parameters.distance_matrix[node][i] < _parameters.coverage_radius ) {
-					covered_nodes.insert(i);
-				}
-			}
-		}
+        for (int i = 0; i < _parameters.num_demand_nodes; i++) {
+            for (const int node : period) {
+                if (_parameters.distance_matrix[node][i] < _parameters.coverage_radius ) {
+                    sum += _parameters.population_matrix[i][t];
+                    break;
+                }
+            }
+        }
 
-		for (const int covered_node : covered_nodes) {
-			double value = _parameters.population_matrix[covered_node][t];
-			sum += value;
-		}
-		
 		t++;
 	}
 	
