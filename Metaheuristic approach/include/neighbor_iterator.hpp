@@ -47,7 +47,7 @@ class N2NeighborIterator : public NeighborIterator {
 
 class N3NeighborIterator : public NeighborIterator {
     public:
-        N3NeighborIterator(const Solution&);
+        N3NeighborIterator(const Solution&) = delete;
         N3NeighborIterator(const Solution&, const std::size_t, const std::size_t);
         std::optional<NeighborIterationResult> get_next() override;
     private:

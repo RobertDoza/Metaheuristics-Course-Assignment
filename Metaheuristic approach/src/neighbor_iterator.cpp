@@ -108,10 +108,6 @@ void N2NeighborIterator::_advance_to_next() {
     }
 }
 
-N3NeighborIterator::N3NeighborIterator(const Solution& solution)
-    :NeighborIterator(solution)
-{}
-
 N3NeighborIterator::N3NeighborIterator(const Solution& solution, const std::size_t size_active, const std::size_t size_inactive)
     :NeighborIterator(solution),
     _active_node_indices(RandomGenerator::pick_k_elements(solution.get_active_node_indices(), size_active)),
