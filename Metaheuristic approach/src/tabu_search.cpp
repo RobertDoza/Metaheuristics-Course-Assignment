@@ -5,6 +5,7 @@
 #include "model.hpp"
 #include "tabu_list.hpp"
 #include "neighbor_iterator.hpp"
+#include "timer.hpp"
 
 #define TS_LOG
 
@@ -48,6 +49,10 @@ void TabuSearcher::start() {
 	unsigned iterations_since_last_improvement = 0;
 
 	while (!stopping_condition_met()) {
+        if (global_timer.expired()) {
+            break;
+        }
+
 		_iteration_counter++;
 
 		#ifdef TS_LOG
