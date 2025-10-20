@@ -27,14 +27,9 @@ void test_tabu_search(const std::string& instance_filepath) {
 	RandomGenerator::set_seed(123);
 	Model::create_model(instance_filepath);
 	
-    bool timeout_reached = false;
     // TODO: remove magic number (timeout (seconds))
     global_timer.start(600);
-	auto [result, fitness] = TabuSearcher::tabu_search();
-
-    if (global_timer.expired()) {
-        timeout_reached = true;
-    }
+	auto [result, fitness, timeout_reached] = TabuSearcher::tabu_search();
 
 	std::cout << "MAX ITER: " << MAX_ITER << std::endl;
 	std::cout << "MOV TL size: " << MOV_TL_SIZE << std::endl;

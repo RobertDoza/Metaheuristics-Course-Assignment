@@ -15,11 +15,11 @@ constexpr const unsigned max_iter_without_improvement = 100;
 TabuSearchResult TabuSearcher::tabu_search() {
 	TabuSearcher& tabu_searcher = get();
 	tabu_searcher.start();
-	return {tabu_searcher._best_solution, tabu_searcher._best_fitness};
+	return {tabu_searcher._best_solution, tabu_searcher._best_fitness, tabu_searcher._timeout_reached};
 }
 
 TabuSearcher::TabuSearcher()
-	:_best_solution(Model::generate_empty_solution()), _best_fitness(negative_infinity)
+	:_best_solution(Model::generate_empty_solution()), _best_fitness(negative_infinity), _iteration_counter(0), _timeout_reached(false)
 {}
 
 TabuSearcher& TabuSearcher::get() {
@@ -50,6 +50,7 @@ void TabuSearcher::start() {
 
 	while (!stopping_condition_met()) {
         if (global_timer.expired()) {
+            _timeout_reached = true;
             break;
         }
 
