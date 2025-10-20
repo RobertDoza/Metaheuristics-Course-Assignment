@@ -16,6 +16,7 @@ INPUT  = input_reader
 MODEL  = model
 UTILS  = utils
 TIMER  = timer
+PARAMS = parameters
 
 CC       = g++
 CPPFLAGS = -Wall -Wextra -Werror -pedantic
@@ -32,6 +33,7 @@ OBJECTS = $(BIN_DIR)/$(MAIN).o \
           $(BIN_DIR)/$(MODEL).o \
           $(BIN_DIR)/$(UTILS).o \
           $(BIN_DIR)/$(TIMER).o \
+          $(BIN_DIR)/$(PARAMS).o \
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $^ $(CPPFLAGS) -o $@
@@ -70,6 +72,9 @@ $(BIN_DIR)/$(UTILS).o: $(SRC_DIR)/$(UTILS).cpp $(INC_DIR)/$(UTILS).hpp | $(BIN_D
 	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
 
 $(BIN_DIR)/$(TIMER).o: $(SRC_DIR)/$(TIMER).cpp $(INC_DIR)/$(TIMER).hpp | $(BIN_DIR)
+	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
+
+$(BIN_DIR)/$(PARAMS).o: $(SRC_DIR)/$(PARAMS).cpp $(INC_DIR)/$(PARAMS).hpp | $(BIN_DIR)
 	$(CC) $< -c $(CPPFLAGS) -o $@ -I$(INC_DIR)
 
 $(BIN_DIR):
