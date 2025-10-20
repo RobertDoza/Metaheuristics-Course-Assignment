@@ -75,20 +75,17 @@ void Model::_set_parameters(const ModelParameters& params) {
 double Model::_calculate_fitness(const Solution& s) const {
 	double sum = 0.0;
 	
-	auto nodes_per_period = s.get_nodes_per_period();
+	std::vector<std::vector<int>> nodes_per_period = s.get_nodes_per_period();
 	
-	int t = 0;
-	for (const auto& period : nodes_per_period) {
+    for (int t = 0; t < _parameters.num_time_periods; t++) {
         for (int i = 0; i < _parameters.num_demand_nodes; i++) {
-            for (const int node : period) {
+            for (const int node : nodes_per_period[t]) {
                 if (_parameters.distance_matrix[node][i] < _parameters.coverage_radius ) {
                     sum += _parameters.population_matrix[i][t];
                     break;
                 }
             }
         }
-
-		t++;
 	}
 	
 	return sum;
