@@ -10,6 +10,8 @@
 constexpr const unsigned max_iterations = 200;
 constexpr const unsigned movement_tabu_list_size = 20;
 constexpr const unsigned max_iter_without_improvement = 50;
+constexpr const double local_search_parameter_multiplier_1 = 0.125;
+constexpr const double local_search_parameter_multiplier_2 = 0.037;
 
 void test_tabu_search(const std::string&);
 
@@ -22,7 +24,9 @@ int main(int argc, char** argv) {
     meta_parameters = MetaParameters{
         max_iterations,
         movement_tabu_list_size,
-        max_iter_without_improvement
+        max_iter_without_improvement,
+        local_search_parameter_multiplier_1,
+        local_search_parameter_multiplier_2
     };
 
 	std::string instance_filepath = argv[1];
