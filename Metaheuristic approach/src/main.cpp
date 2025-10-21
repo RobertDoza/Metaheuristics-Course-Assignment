@@ -13,7 +13,7 @@ constexpr const unsigned max_iter_without_improvement = 50;
 constexpr const double local_search_parameter_multiplier_1 = 0.125;
 constexpr const double local_search_parameter_multiplier_2 = 0.037;
 constexpr const double aspiration_multiplier = 0.9;
-constexpr const MetaParameters::LocalSearchType local_search_type = MetaParameters::LocalSearchType::FirstImprovement;
+constexpr const MetaParameters::LocalSearchType local_search_type = MetaParameters::LocalSearchType::BestImprovement;
 
 void test_tabu_search(const std::string&);
 
