@@ -99,7 +99,7 @@ void TabuSearcher::start() {
 			iteration_of_last_improvement = _iteration_counter;
 			iterations_since_last_improvement = 0;
 			#ifdef TS_LOG
-			std::cout << "Found improvement!" << std::endl;
+			std::cout << "Found improvement!" << " (" << std::to_string(fitness) << ")" << std::endl;
 			#endif
 		} else {
 			iterations_since_last_improvement++;
