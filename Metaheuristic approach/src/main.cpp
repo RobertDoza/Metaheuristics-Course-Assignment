@@ -12,6 +12,7 @@ constexpr const unsigned movement_tabu_list_size = 20;
 constexpr const unsigned max_iter_without_improvement = 50;
 constexpr const double local_search_parameter_multiplier_1 = 0.125;
 constexpr const double local_search_parameter_multiplier_2 = 0.037;
+constexpr const double aspiration_multiplier = 0.9;
 
 void test_tabu_search(const std::string&);
 
@@ -44,7 +45,8 @@ void test_tabu_search(const std::string& instance_filepath) {
         local_search_parameter_multiplier_1,
         local_search_parameter_multiplier_2,
         (unsigned) (p * local_search_parameter_multiplier_1),
-        (unsigned) ((j * t - p) * local_search_parameter_multiplier_2)
+        (unsigned) ((j * t - p) * local_search_parameter_multiplier_2),
+        aspiration_multiplier
     };
 	
     // TODO: remove magic number (timeout (seconds))

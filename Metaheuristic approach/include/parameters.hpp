@@ -8,6 +8,7 @@ struct MetaParameters {
     double local_search_parameter_multiplier_2;
     unsigned ls_active_nodes;
     unsigned ls_inactive_nodes;
+    double aspiration_multiplier;
 };
 
 extern MetaParameters meta_parameters;
