@@ -28,7 +28,7 @@ class TabuSearcher {
 
 		void start();
 		bool stopping_condition_met() const;
-		std::optional<LocalSearchResult> get_local_best_solution(const Solution&);
+		std::optional<LocalSearchResult> get_local_best_solution(const Solution&, double);
 	private:
 		Solution _best_solution;
 		double _best_fitness;

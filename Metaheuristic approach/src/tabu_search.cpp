@@ -63,7 +63,7 @@ void TabuSearcher::start() {
 		std::cout << std::endl;
 		#endif
 
-		std::optional<LocalSearchResult> local_search_result = get_local_best_solution(current_solution);
+		std::optional<LocalSearchResult> local_search_result = get_local_best_solution(current_solution, Model::calculate_fitness(current_solution));
 
 		#ifdef TS_LOG
 		std::cout << std::endl;
@@ -148,13 +148,13 @@ bool TabuSearcher::stopping_condition_met() const {
 	return false;
 }
 
-std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Solution& solution) {
+std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Solution& solution, double solution_fitness) {
 	#ifdef TS_LOG
 	// std::cout << "Local search - start" << std::endl;
 	#endif
 
-	Solution local_best_solution = Model::generate_empty_solution();
-	double local_best_fitness = negative_infinity;
+	Solution local_best_solution = solution;
+	double local_best_fitness = solution_fitness;
 	Movement movement_to_local_best;
 	bool found_improvement = false;
 
