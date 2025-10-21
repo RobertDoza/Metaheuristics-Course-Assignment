@@ -158,58 +158,35 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 	Movement movement_to_local_best;
 	bool found_improvement = false;
 
-	int counter = 0;
     int p1 = meta_parameters.ls_active_nodes;
-    std::cout << p1 << std::endl;
     int p2 = meta_parameters.ls_inactive_nodes;
-    std::cout << p2 << std::endl;
 	auto neighbor_iterator = N3NeighborIterator(solution, p1, p2);
+    unsigned neighbor_counter = 0;
 
-	while (true) {
-		counter++;
-
+    while (true) {
 		std::optional<NeighborIterationResult> next = neighbor_iterator.get_next();
 
-		if (!next) {
+		if (!next.has_value()) {
 			break;
 		}
 
 		auto [neighbor, movement_to_neighbor] = next.value();
+		neighbor_counter++;
 
 		#ifdef TS_LOG
-		std::cout << "\rNeighbor: " << counter;// << std::endl;
+		std::cout << "\rNeighbor: " << std::to_string(neighbor_counter);// << std::endl;
 		// std::cout << movement_to_neighbor << std::endl;
 		// std::cout << neighbor << std::endl;
 		#endif
 
 		double fitness = Model::calculate_fitness(neighbor);
-		
-		// if (TabuList::contains(neighbor)) {
-		if (MovementTabuList::contains(movement_to_neighbor)) {
-			if (fitness > _best_fitness) {
-				local_best_solution = neighbor;
-				local_best_fitness = fitness;
-				movement_to_local_best = movement_to_neighbor;
-				found_improvement = true;
-				
-				// TabuList::remove(neighbor);
-				MovementTabuList::remove(movement_to_neighbor);
-				
-				#ifdef TS_LOG
-				std::cout << "Aspiration criterion met!" << std::endl;
-				#endif
 
-				continue;
-			}
+        bool tabu = MovementTabuList::contains(movement_to_neighbor);
+        bool aspirational = fitness > meta_parameters.aspiration_multiplier * _best_fitness;
 
-			#ifdef TS_LOG
-			std::cout << "Skipping neighbor ";
-			//std::cout << neighbor;
-			std::cout << std::endl;
-			#endif
-
-			continue;
-		}
+        if (tabu && !aspirational) {
+            continue;
+        }
 
 		if (fitness > local_best_fitness) {
 			local_best_solution = neighbor;
