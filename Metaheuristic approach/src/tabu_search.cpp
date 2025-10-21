@@ -193,6 +193,10 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 			local_best_fitness = fitness;
 			movement_to_local_best = movement_to_neighbor;
 			found_improvement = true;
+
+            if (meta_parameters.local_search_type == MetaParameters::LocalSearchType::FirstImprovement) {
+                break;
+            }
 		}
 	}
 

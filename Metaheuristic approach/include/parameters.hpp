@@ -1,6 +1,10 @@
 #pragma once
 
 struct MetaParameters {
+    enum class LocalSearchType {
+        FirstImprovement,
+        BestImprovement
+    };
     unsigned max_iterations;
     unsigned movement_tabu_list_size;
     unsigned max_iter_without_improvement;
@@ -9,6 +13,7 @@ struct MetaParameters {
     unsigned ls_active_nodes;
     unsigned ls_inactive_nodes;
     double aspiration_multiplier;
+    LocalSearchType local_search_type;
 };
 
 extern MetaParameters meta_parameters;

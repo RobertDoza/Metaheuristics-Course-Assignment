@@ -13,6 +13,7 @@ constexpr const unsigned max_iter_without_improvement = 50;
 constexpr const double local_search_parameter_multiplier_1 = 0.125;
 constexpr const double local_search_parameter_multiplier_2 = 0.037;
 constexpr const double aspiration_multiplier = 0.9;
+constexpr const MetaParameters::LocalSearchType local_search_type = MetaParameters::LocalSearchType::FirstImprovement;
 
 void test_tabu_search(const std::string&);
 
@@ -46,7 +47,8 @@ void test_tabu_search(const std::string& instance_filepath) {
         local_search_parameter_multiplier_2,
         (unsigned) (p * local_search_parameter_multiplier_1),
         (unsigned) ((j * t - p) * local_search_parameter_multiplier_2),
-        aspiration_multiplier
+        aspiration_multiplier,
+        local_search_type
     };
 	
     // TODO: remove magic number (timeout (seconds))
