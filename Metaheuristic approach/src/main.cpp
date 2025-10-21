@@ -54,8 +54,12 @@ void test_tabu_search(const std::string& instance_filepath) {
 	auto [result, fitness, timeout_reached] = TabuSearcher::tabu_search();
 
 	std::cout << "MAX ITER: " << meta_parameters.max_iterations << std::endl;
+	std::cout << "MAX ITER without improvement: " << meta_parameters.max_iter_without_improvement << std::endl;
 	std::cout << "MOV TL size: " << meta_parameters.movement_tabu_list_size << std::endl;
+    std::cout << "Number of active nodes in LS: " << meta_parameters.ls_active_nodes << std::endl;
+    std::cout << "Number of inactive nodes in LS: " << meta_parameters.ls_inactive_nodes << std::endl;
+
 	std::cout << "Best solution: " << result << std::endl;
-	std::cout << "Obj: " << fitness << std::endl;
+	std::cout << "Obj: " << std::to_string(fitness) << std::endl;
     std::cout << "Timeout reached: " << (timeout_reached ? "yes" : "no") << std::endl;
 }
