@@ -1,0 +1,8 @@
+max_iterations 50
+movement_tabu_list_size 50
+max_iter_without_improvement 200
+local_search_parameter_multiplier_1 0.2
+local_search_parameter_multiplier_2 0.2
+aspiration_multiplier 0.95
+local_search_type BestImprovement
+
