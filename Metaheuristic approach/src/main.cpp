@@ -6,6 +6,7 @@
 #include "tabu_list.hpp"
 #include "timer.hpp"
 #include "parameters.hpp"
+#include "statistics.hpp"
 
 void test_tabu_search(const std::string&, unsigned);
 
@@ -37,6 +38,9 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
 	
 	auto [result, fitness] = TabuSearcher::tabu_search();
 
+    global_statistics.best_solution = result;
+    global_statistics.best_fitness = fitness;
+
 	std::cout << "MAX ITER: " << meta_parameters.max_iterations << std::endl;
 	std::cout << "MAX ITER without improvement: " << meta_parameters.max_iter_without_improvement << std::endl;
 	std::cout << "MOV TL size: " << meta_parameters.movement_tabu_list_size << std::endl;
@@ -45,4 +49,11 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
 
 	std::cout << "Best solution: " << result << std::endl;
 	std::cout << "Obj: " << std::to_string(fitness) << std::endl;
+
+    std::cout << "Best solution: " << global_statistics.best_solution.value() << std::endl;
+    std::cout << "Best fitness: " << std::to_string(global_statistics.best_fitness) << std::endl;
+    std::cout << "Best time: " << std::to_string(global_statistics.best_time) << std::endl;
+    std::cout << "Total time: " << std::to_string(global_statistics.total_time) << std::endl;
+    std::cout << "Number of iterations: " << global_statistics.num_iterations << std::endl;
+    std::cout << "Number of evaluations: " << global_statistics.num_evals << std::endl;
 }
