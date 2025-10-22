@@ -15,11 +15,11 @@ const double negative_infinity = - std::numeric_limits<double>::infinity();
 TabuSearchResult TabuSearcher::tabu_search() {
 	TabuSearcher& tabu_searcher = get();
 	tabu_searcher.start();
-	return {tabu_searcher._best_solution, tabu_searcher._best_fitness, tabu_searcher._timeout_reached};
+	return {tabu_searcher._best_solution, tabu_searcher._best_fitness};
 }
 
 TabuSearcher::TabuSearcher()
-	:_best_solution(Model::generate_empty_solution()), _best_fitness(negative_infinity), _iteration_counter(0), _timeout_reached(false)
+	:_best_solution(Model::generate_empty_solution()), _best_fitness(negative_infinity), _iteration_counter(0)
 {}
 
 TabuSearcher& TabuSearcher::get() {
@@ -49,11 +49,6 @@ void TabuSearcher::start() {
 	unsigned iterations_since_last_improvement = 0;
 
 	while (!stopping_condition_met()) {
-        if (global_timer.expired()) {
-            _timeout_reached = true;
-            break;
-        }
-
 		_iteration_counter++;
 
 		#ifdef TS_LOG

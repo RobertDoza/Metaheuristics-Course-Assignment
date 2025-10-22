@@ -35,9 +35,7 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
     meta_parameters.ls_active_nodes = (unsigned) (p * meta_parameters.local_search_parameter_multiplier_1);
     meta_parameters.ls_inactive_nodes = (unsigned) ((j * t - p) * meta_parameters.local_search_parameter_multiplier_2);
 	
-    // TODO: remove magic number (timeout (seconds))
-    global_timer.start(600);
-	auto [result, fitness, timeout_reached] = TabuSearcher::tabu_search();
+	auto [result, fitness] = TabuSearcher::tabu_search();
 
 	std::cout << "MAX ITER: " << meta_parameters.max_iterations << std::endl;
 	std::cout << "MAX ITER without improvement: " << meta_parameters.max_iter_without_improvement << std::endl;
@@ -47,5 +45,4 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
 
 	std::cout << "Best solution: " << result << std::endl;
 	std::cout << "Obj: " << std::to_string(fitness) << std::endl;
-    std::cout << "Timeout reached: " << (timeout_reached ? "yes" : "no") << std::endl;
 }

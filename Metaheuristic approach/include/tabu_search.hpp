@@ -8,7 +8,6 @@
 struct TabuSearchResult {
 	Solution solution;
 	double fitness;
-    bool timeout_reached;
 };
 
 struct LocalSearchResult {
@@ -33,5 +32,4 @@ class TabuSearcher {
 		Solution _best_solution;
 		double _best_fitness;
 		unsigned _iteration_counter;
-        bool _timeout_reached;
 };
