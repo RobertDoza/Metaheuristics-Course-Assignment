@@ -7,14 +7,6 @@
 #include "timer.hpp"
 #include "parameters.hpp"
 
-constexpr const unsigned max_iterations = 200;
-constexpr const unsigned movement_tabu_list_size = 20;
-constexpr const unsigned max_iter_without_improvement = 50;
-constexpr const double local_search_parameter_multiplier_1 = 0.125;
-constexpr const double local_search_parameter_multiplier_2 = 0.037;
-constexpr const double aspiration_multiplier = 0.9;
-constexpr const MetaParameters::LocalSearchType local_search_type = MetaParameters::LocalSearchType::BestImprovement;
-
 void test_tabu_search(const std::string&);
 
 int main(int argc, char** argv) {
@@ -36,20 +28,12 @@ void test_tabu_search(const std::string& instance_filepath) {
 	RandomGenerator::set_seed(123);
 	Model::create_model(instance_filepath);
 
+    meta_parameters = load_meta_parameters("meta_parameters.txt");
     int p = Model::get_parameters().target_num_sites;
     int t = Model::get_parameters().num_time_periods;
     int j = Model::get_parameters().num_eligible_sites;
-    meta_parameters = MetaParameters{
-        max_iterations,
-        movement_tabu_list_size,
-        max_iter_without_improvement,
-        local_search_parameter_multiplier_1,
-        local_search_parameter_multiplier_2,
-        (unsigned) (p * local_search_parameter_multiplier_1),
-        (unsigned) ((j * t - p) * local_search_parameter_multiplier_2),
-        aspiration_multiplier,
-        local_search_type
-    };
+    meta_parameters.ls_active_nodes = (unsigned) (p * meta_parameters.local_search_parameter_multiplier_1);
+    meta_parameters.ls_inactive_nodes = (unsigned) ((j * t - p) * meta_parameters.local_search_parameter_multiplier_2);
 	
     // TODO: remove magic number (timeout (seconds))
     global_timer.start(600);

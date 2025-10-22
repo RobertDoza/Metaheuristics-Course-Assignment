@@ -16,5 +16,7 @@ struct MetaParameters {
     LocalSearchType local_search_type;
 };
 
+MetaParameters load_meta_parameters(const std::string&);
+
 extern MetaParameters meta_parameters;
 
