@@ -7,25 +7,25 @@
 #include "timer.hpp"
 #include "parameters.hpp"
 
-void test_tabu_search(const std::string&);
+void test_tabu_search(const std::string&, unsigned);
 
 int main(int argc, char** argv) {
-	if (argc != 2) {
-		std::cout << "Usage: " << argv[0] << " <path>" << std::endl;
+	if (argc != 3) {
+		std::cout << "Usage: " << argv[0] << " <path> <seed>" << std::endl;
 		return 1;
 	}
 
 	std::string instance_filepath = argv[1];
-	test_tabu_search(instance_filepath);
+    unsigned seed = std::stoul(argv[2]);
+	test_tabu_search(instance_filepath, seed);
 
 	return 0;
 }
 
-void test_tabu_search(const std::string& instance_filepath) {
+void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
 	// std::cout << instance_filepath << std::endl;
 
-    // TODO: remove magic number (seed)
-	RandomGenerator::set_seed(123);
+	RandomGenerator::set_seed(seed);
 	Model::create_model(instance_filepath);
 
     meta_parameters = load_meta_parameters("meta_parameters.txt");
