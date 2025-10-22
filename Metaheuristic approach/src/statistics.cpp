@@ -1,4 +1,4 @@
 #include "statistics.hpp"
 
-// TODO
+Statistics global_statistics;
 
