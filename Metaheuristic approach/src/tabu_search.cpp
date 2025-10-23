@@ -175,6 +175,12 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
         bool tabu = MovementTabuList::contains(movement_to_neighbor);
         bool aspirational = fitness > meta_parameters.aspiration_multiplier * _best_fitness;
 
+        #ifdef TS_LOG
+        if (tabu && aspirational) {
+            std::cout << std::endl << "Aspiration criterion met!" << std::endl;
+        }
+        #endif
+
         if (tabu && !aspirational) {
             continue;
         }
