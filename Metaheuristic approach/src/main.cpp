@@ -47,9 +47,6 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
     std::cout << "Number of active nodes in LS: " << meta_parameters.ls_active_nodes << std::endl;
     std::cout << "Number of inactive nodes in LS: " << meta_parameters.ls_inactive_nodes << std::endl;
 
-	std::cout << "Best solution: " << result << std::endl;
-	std::cout << "Obj: " << std::to_string(fitness) << std::endl;
-
     std::cout << "Best solution: " << global_statistics.best_solution.value() << std::endl;
     std::cout << "Best fitness: " << std::to_string(global_statistics.best_fitness) << std::endl;
     std::cout << "Best time: " << std::to_string(global_statistics.best_time) << std::endl;
