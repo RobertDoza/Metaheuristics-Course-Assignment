@@ -7,6 +7,7 @@
 #include "neighbor_iterator.hpp"
 #include "timer.hpp"
 #include "parameters.hpp"
+#include "statistics.hpp"
 
 #define TS_LOG
 
@@ -45,7 +46,7 @@ void TabuSearcher::start() {
 	// TabuList::clear();
 	MovementTabuList::clear();
 	_iteration_counter = 0;
-	unsigned iteration_of_last_improvement;
+    global_statistics.iteration_of_last_improvement = 0;
 	unsigned iterations_since_last_improvement = 0;
 
 	while (!stopping_condition_met()) {
@@ -91,7 +92,7 @@ void TabuSearcher::start() {
 		if (fitness > _best_fitness) {
 			_best_solution = local_best_solution;
 			_best_fitness = fitness;
-			iteration_of_last_improvement = _iteration_counter;
+			global_statistics.iteration_of_last_improvement = _iteration_counter;
 			iterations_since_last_improvement = 0;
 			#ifdef TS_LOG
 			std::cout << "Found improvement!" << " (" << std::to_string(fitness) << ")" << std::endl;
@@ -128,11 +129,6 @@ void TabuSearcher::start() {
 			iterations_since_last_improvement = 0;
 		}
 	}
-
-	#ifdef TS_LOG
-	std::cout << std::endl;
-	std::cout << "Last improvement in iteration: " << iteration_of_last_improvement << std::endl;
-	#endif
 }
 
 bool TabuSearcher::stopping_condition_met() const {
