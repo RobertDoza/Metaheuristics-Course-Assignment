@@ -21,6 +21,7 @@ class Model {
 		static void create_model(const std::string&);
 		static Solution generate_random_solution();
 		static Solution generate_empty_solution();
+		static Solution generate_greedy_solution();
 		static double calculate_fitness(const Solution&);
 		static std::string to_string();
         static ModelParameters get_parameters();

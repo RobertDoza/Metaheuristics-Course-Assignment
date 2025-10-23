@@ -46,6 +46,43 @@ Solution Model::generate_empty_solution() {
 	Model& model = _get_model();
     return Solution(model._parameters.num_eligible_sites, model._parameters.num_time_periods);
 }
+#include<iostream>
+Solution Model::generate_greedy_solution() {
+    Model& model = _get_model();
+    int i = model._parameters.num_demand_nodes;
+    int j = model._parameters.num_eligible_sites;
+    int t = model._parameters.num_time_periods;
+    int p = model._parameters.target_num_sites;
+
+    Solution solution = generate_empty_solution();
+
+    for (int counter = 0; counter < p; counter++) {
+        int period = counter % t;
+
+        int best_node = 0;
+        unsigned most_neighbors = 0;
+        for (int node = 0; node < j; node++) {
+            if (solution._vector[j * period + node]) {
+                continue;
+            }
+
+            unsigned num_neighbors = 0;
+            for (int node2 = 0; node2 < i; node2++) {
+                if (model._parameters.distance_matrix[node][node2] < model._parameters.coverage_radius) {
+                    num_neighbors++;
+                }
+            }
+
+            if (num_neighbors > most_neighbors) {
+                most_neighbors = num_neighbors;
+                best_node = node;
+            }
+        }
+        solution._vector[j * period + best_node] = 1;
+    }
+
+    return solution;
+}
 
 double Model::calculate_fitness(const Solution& solution) {
 	return _get_model()._calculate_fitness(solution);

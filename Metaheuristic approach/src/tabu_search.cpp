@@ -28,7 +28,7 @@ TabuSearcher& TabuSearcher::get() {
 }
 
 void TabuSearcher::start() {
-	Solution initial_solution = Model::generate_random_solution();
+	Solution initial_solution = Model::generate_greedy_solution();
 	
 	_best_solution = initial_solution;
 	_best_fitness = Model::calculate_fitness(_best_solution);

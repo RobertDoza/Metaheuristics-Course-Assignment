@@ -28,6 +28,7 @@ class Solution {
 		void move_k_facilities(const unsigned);
 
 		friend class TabuSearcher;
+        friend class Model;
 		friend class NeighborIterator;
 		friend class N1NeighborIterator;
 		friend class N2NeighborIterator;
