@@ -172,6 +172,11 @@ std::optional<LocalSearchResult> TabuSearcher::get_local_best_solution(const Sol
 
 		double fitness = Model::calculate_fitness(neighbor);
 
+        double time = global_timer.elapsed_seconds();
+        if (fitness > _best_fitness) {
+            global_statistics.best_time = time;
+        }
+
         bool tabu = MovementTabuList::contains(movement_to_neighbor);
         bool aspirational = fitness > meta_parameters.aspiration_multiplier * _best_fitness;
 
