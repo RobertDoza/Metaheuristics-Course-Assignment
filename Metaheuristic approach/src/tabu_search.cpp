@@ -75,7 +75,7 @@ void TabuSearcher::start() {
 		} else {
             local_best_solution = current_solution;
 			#ifdef TS_LOG
-			std::cout << "No local best found." << std::endl;
+			std::cout << "No local improvement found." << std::endl;
 			#endif
 		}
 
@@ -94,7 +94,7 @@ void TabuSearcher::start() {
 			global_statistics.iteration_of_last_improvement = _iteration_counter;
 			iterations_since_last_improvement = 0;
 			#ifdef TS_LOG
-			std::cout << "Found improvement!" << " (" << std::to_string(fitness) << ")" << std::endl;
+			std::cout << "Found (global) improvement!" << " (" << std::to_string(fitness) << ")" << std::endl;
 			#endif
 		} else {
 			iterations_since_last_improvement++;
@@ -121,7 +121,7 @@ void TabuSearcher::start() {
 
 		if (iterations_since_last_improvement >= meta_parameters.max_iter_without_improvement) {
 			#ifdef TS_LOG
-			std::cout << "Iterations since improvement reached " << std::to_string(meta_parameters.max_iter_without_improvement) << " - shaking..." << std::endl;
+			// std::cout << "Iterations since improvement reached " << std::to_string(meta_parameters.max_iter_without_improvement) << " - shaking..." << std::endl;
 			#endif
 			// current_solution.move_k_facilities(30);
 			current_solution = Model::generate_random_solution();
