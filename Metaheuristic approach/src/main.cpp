@@ -36,7 +36,9 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
     meta_parameters.ls_active_nodes = (unsigned) (p * meta_parameters.local_search_parameter_multiplier_1);
     meta_parameters.ls_inactive_nodes = (unsigned) ((j * t - p) * meta_parameters.local_search_parameter_multiplier_2);
 	
+    global_timer.start();
 	auto [result, fitness] = TabuSearcher::tabu_search();
+    global_statistics.total_time = global_timer.elapsed_seconds();
 
     global_statistics.best_solution = result;
     global_statistics.best_fitness = fitness;
