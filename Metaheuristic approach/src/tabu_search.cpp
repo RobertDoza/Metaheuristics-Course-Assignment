@@ -73,8 +73,7 @@ void TabuSearcher::start() {
 			local_best_solution = result.solution;
 			movement_to_local_best = result.movement;
 		} else {
-			local_best_solution = Model::generate_random_solution();
-			// TODO: movement_to_local_best = ...
+            local_best_solution = current_solution;
 			#ifdef TS_LOG
 			std::cout << "No local best found." << std::endl;
 			#endif
