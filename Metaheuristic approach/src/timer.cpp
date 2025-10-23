@@ -8,20 +8,19 @@ Timer::Timer()
     :_started(false)
 {}
 
-void Timer::start(std::size_t num_seconds) {
+void Timer::start() {
     if (_started) {
         throw std::runtime_error("Timer already started!");
     }
 
     _start_time = std::chrono::steady_clock::now();
-    _time_limit = std::chrono::seconds(num_seconds);
     _started = true;
 }
 
-bool Timer::expired() const {
+double Timer::elapsed_seconds() const {
     if (!_started) {
         throw std::runtime_error("Timer not started yet!");
     }
-    return std::chrono::steady_clock::now() - _start_time >= _time_limit;
-}
 
+    return std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - _start_time).count();
+}
