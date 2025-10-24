@@ -19,7 +19,7 @@ struct MetaParameters {
     friend std::ostream& operator<<(std::ostream&, const MetaParameters&);
 };
 
-MetaParameters load_meta_parameters(const std::string&);
+void load_meta_parameters(const std::string&);
 
 extern MetaParameters meta_parameters;
 

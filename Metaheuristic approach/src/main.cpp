@@ -29,12 +29,7 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
 	RandomGenerator::set_seed(seed);
 	Model::create_model(instance_filepath);
 
-    meta_parameters = load_meta_parameters("meta_parameters.txt");
-    int p = Model::get_parameters().target_num_sites;
-    int t = Model::get_parameters().num_time_periods;
-    int j = Model::get_parameters().num_eligible_sites;
-    meta_parameters.ls_active_nodes = (unsigned) (p * meta_parameters.local_search_parameter_multiplier_1);
-    meta_parameters.ls_inactive_nodes = (unsigned) ((j * t - p) * meta_parameters.local_search_parameter_multiplier_2);
+    load_meta_parameters("meta_parameters.txt");
 	
     global_timer.start();
 	auto [result, fitness] = TabuSearcher::tabu_search();
