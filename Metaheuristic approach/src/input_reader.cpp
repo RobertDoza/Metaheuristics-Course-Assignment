@@ -1,9 +1,6 @@
-#include "input_reader.hpp"
-
 #include <fstream>
 
-// TODO: remove me
-#include <iostream>
+#include "input_reader.hpp"
 
 ModelParameters InputReader::read_input(const std::string& filename) {
 	std::ifstream in(filename);
@@ -15,19 +12,11 @@ ModelParameters InputReader::read_input(const std::string& filename) {
 	std::size_t i, j, t, p;
 	double s;
 	
-	i = read_int(in);
-	j = read_int(in);
-	t = read_int(in);
+	i = read_size_t(in);
+	j = read_size_t(in);
+	t = read_size_t(in);
 	s = read_double(in);
-	p = read_int(in);
-	
-	/*
-	std::cout << "I = " << i << "\n";
-	std::cout << "J = " << j << "\n";
-	std::cout << "T = " << t << "\n";
-	std::cout << "S = " << s << "\n";
-	std::cout << "p = " << p << "\n";
-	*/
+	p = read_size_t(in);
 	
 	std::vector<std::vector<double>> population_matrix(i, std::vector<double>(t));
 	std::vector<std::vector<double>> distance_matrix(i, std::vector<double>(i));
@@ -35,45 +24,29 @@ ModelParameters InputReader::read_input(const std::string& filename) {
 	read_matrix(in, population_matrix);
 	read_matrix(in, distance_matrix);
 	
-	/*
-	for (int _i = 0; _i < i; _i++) {
-		for (int _t = 0; _t < t; _t++) {
-			std::cout << population_matrix[_i][_t] << " ";
-		}
-		std::cout << "\n";
-	}
-	
-	for (int _i = 0; _i < i; _i++) {
-		for (int _j = 0; _j < i; _j++) {
-			std::cout << distance_matrix[_i][_j] << " ";
-		}
-		std::cout << "\n";
-	}
-	*/
-	
-	return {i, j, t, s, p, population_matrix, distance_matrix};
+	return ModelParameters{i, j, t, s, p, population_matrix, distance_matrix};
 }
 
-int InputReader::read_int(std::ifstream& in) {
-	std::string token;
-	if (!(in >> token)) {
-		throw std::runtime_error("Error reading integer");
-	}
+std::size_t InputReader::read_size_t(std::ifstream& in) {
+    std::string token;
+    if (!(in >> token)) {
+        throw std::runtime_error("Error reading size_t value");
+    }
 
-	try {
-		std::size_t position;
-		int value = std::stoi(token, &position);
-		
-		if (position != token.length()) {
-			throw std::runtime_error("Not an integer");
-		}
-		
-		return value;
-	} catch (const std::invalid_argument& e) {
-		throw std::runtime_error("Invalid integer format");
-	} catch (const std::out_of_range& e) {
-		throw std::runtime_error("Integer out of range");
-	}
+    try {
+        std::size_t position;
+        unsigned long value = std::stoul(token, &position);
+
+        if (position != token.length()) {
+            throw std::runtime_error("Not a valid size_t value");
+        }
+
+        return static_cast<std::size_t>(value);
+    } catch (const std::invalid_argument&) {
+        throw std::runtime_error("Invalid size_t format");
+    } catch (const std::out_of_range&) {
+        throw std::runtime_error("size_t value out of range");
+    }
 }
 
 double InputReader::read_double(std::ifstream& in) {
