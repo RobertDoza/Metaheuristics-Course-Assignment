@@ -43,11 +43,9 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
     global_statistics.best_solution = result;
     global_statistics.best_fitness = fitness;
 
-	std::cout << "MAX ITER: " << meta_parameters.max_iterations << std::endl;
-	std::cout << "MAX ITER without improvement: " << meta_parameters.max_iter_without_improvement << std::endl;
-	std::cout << "MOV TL size: " << meta_parameters.movement_tabu_list_size << std::endl;
-    std::cout << "Number of active nodes in LS: " << meta_parameters.ls_active_nodes << std::endl;
-    std::cout << "Number of inactive nodes in LS: " << meta_parameters.ls_inactive_nodes << std::endl;
+    std::cout << meta_parameters << std::endl;
+
+    std::cout << std::endl;
 
     std::cout << global_statistics << std::endl;
 }

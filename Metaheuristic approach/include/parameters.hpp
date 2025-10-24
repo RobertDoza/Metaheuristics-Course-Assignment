@@ -14,6 +14,9 @@ struct MetaParameters {
     unsigned ls_inactive_nodes;
     double aspiration_multiplier;
     LocalSearchType local_search_type;
+
+    std::string to_string() const;
+    friend std::ostream& operator<<(std::ostream&, const MetaParameters&);
 };
 
 MetaParameters load_meta_parameters(const std::string&);

@@ -52,3 +52,20 @@ MetaParameters load_meta_parameters(const std::string& filename) {
     return parameters;
 }
 
+std::string MetaParameters::to_string() const {
+    std::stringstream buffer;
+
+    buffer << "Max total iterations: " << meta_parameters.max_iterations << std::endl;
+	buffer << "Max iterations without improvement: " << meta_parameters.max_iter_without_improvement << std::endl;
+	buffer << "Movement tabu list size: " << meta_parameters.movement_tabu_list_size << std::endl;
+    buffer << "Number of active nodes in LS: " << meta_parameters.ls_active_nodes << std::endl;
+    buffer << "Number of inactive nodes in LS: " << meta_parameters.ls_inactive_nodes;
+
+    return buffer.str();
+}
+
+std::ostream& operator<<(std::ostream& out, const MetaParameters& params) {
+    out << params.to_string();
+    return out;
+}
+
