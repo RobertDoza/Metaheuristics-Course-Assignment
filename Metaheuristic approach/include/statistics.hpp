@@ -12,7 +12,7 @@ struct Statistics {
     double best_time;
     double total_time;
     std::size_t num_iterations;
-    std::size_t num_evals;
+    std::size_t fitness_evaluation_count;
     std::size_t iteration_of_last_improvement;
 };
 
