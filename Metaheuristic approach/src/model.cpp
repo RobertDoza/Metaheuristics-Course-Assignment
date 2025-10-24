@@ -4,6 +4,7 @@
 #include "model.hpp"
 #include "input_reader.hpp"
 #include "utils.hpp"
+#include "statistics.hpp"
 
 bool Model::_created = false;
 Model Model::_model;
@@ -85,6 +86,7 @@ Solution Model::generate_greedy_solution() {
 }
 
 double Model::calculate_fitness(const Solution& solution) {
+    global_statistics.num_evals++;
 	return _get_model()._calculate_fitness(solution);
 }
 
