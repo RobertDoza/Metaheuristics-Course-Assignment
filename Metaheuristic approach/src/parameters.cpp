@@ -31,10 +31,10 @@ void load_meta_parameters(const std::string& filename) {
             iss >> meta_parameters.movement_tabu_list_size;
         } else if (key == "max_iter_without_improvement") {
             iss >> meta_parameters.max_iter_without_improvement;
-        } else if (key == "local_search_parameter_multiplier_1") {
-            iss >> meta_parameters.local_search_parameter_multiplier_1;
-        } else if (key == "local_search_parameter_multiplier_2") {
-            iss >> meta_parameters.local_search_parameter_multiplier_2;
+        } else if (key == "ls_multiplier_1") {
+            iss >> meta_parameters.ls_multiplier_1;
+        } else if (key == "ls_multiplier_2") {
+            iss >> meta_parameters.ls_multiplier_2;
         } else if (key == "aspiration_multiplier") {
             iss >> meta_parameters.aspiration_multiplier;
         } else if (key == "local_search_type") {
@@ -55,10 +55,10 @@ void load_meta_parameters(const std::string& filename) {
     std::size_t t = Model::get_parameters().num_time_periods;
     std::size_t j = Model::get_parameters().num_eligible_sites;
 
-    double active = static_cast<double>(p) * meta_parameters.local_search_parameter_multiplier_1;
+    double active = static_cast<double>(p) * meta_parameters.ls_multiplier_1;
     meta_parameters.ls_active_nodes = static_cast<std::size_t>(std::lround(active));
 
-    double inactive = static_cast<double>(j * t - p) * meta_parameters.local_search_parameter_multiplier_2;
+    double inactive = static_cast<double>(j * t - p) * meta_parameters.ls_multiplier_2;
     meta_parameters.ls_inactive_nodes = static_cast<std::size_t>(std::lround(inactive));
 }
 
@@ -68,8 +68,11 @@ std::string MetaParameters::to_string() const {
     buffer << "Max total iterations: " << meta_parameters.max_iterations << std::endl;
 	buffer << "Max iterations without improvement: " << meta_parameters.max_iter_without_improvement << std::endl;
 	buffer << "Movement tabu list size: " << meta_parameters.movement_tabu_list_size << std::endl;
-    buffer << "Number of active nodes in LS: " << meta_parameters.ls_active_nodes << std::endl;
-    buffer << "Number of inactive nodes in LS: " << meta_parameters.ls_inactive_nodes;
+	buffer << "Aspiration criterion percentage: " << meta_parameters.aspiration_multiplier << std::endl;
+    buffer << "Number of active nodes in LS: " << meta_parameters.ls_active_nodes
+           << " (" << meta_parameters.ls_multiplier_1 << ")" << std::endl;
+    buffer << "Number of inactive nodes in LS: " << meta_parameters.ls_inactive_nodes
+           << " (" << meta_parameters.ls_multiplier_2 << ")" << std::endl;
 
     return buffer.str();
 }
