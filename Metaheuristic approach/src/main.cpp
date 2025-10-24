@@ -8,28 +8,20 @@
 #include "parameters.hpp"
 #include "statistics.hpp"
 
-void test_tabu_search(const std::string&, unsigned);
-
 int main(int argc, char** argv) {
-	if (argc != 3) {
-		std::cout << "Usage: " << argv[0] << " <path> <seed>" << std::endl;
+	if (argc != 4) {
+		std::cout << "Usage: " << argv[0] << " <instance_path> <parameters_path> <seed>" << std::endl;
 		return 1;
 	}
 
 	std::string instance_filepath = argv[1];
-    unsigned seed = std::stoul(argv[2]);
-	test_tabu_search(instance_filepath, seed);
+    std::string parameters_filepath = argv[2];
+    unsigned seed = std::stoul(argv[3]);
 
-	return 0;
-}
-
-void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
-	// std::cout << instance_filepath << std::endl;
-
-	RandomGenerator::set_seed(seed);
+    RandomGenerator::set_seed(seed);
 	Model::create_model(instance_filepath);
 
-    load_meta_parameters("meta_parameters.txt");
+    load_meta_parameters(parameters_filepath);
 	
     global_timer.start();
 	auto [result, fitness] = TabuSearcher::tabu_search();
@@ -43,5 +35,7 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
     std::cout << std::endl;
 
     std::cout << global_statistics << std::endl;
+
+	return 0;
 }
 
