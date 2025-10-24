@@ -121,7 +121,7 @@ void TabuSearcher::start() {
 
 		if (iterations_since_last_improvement >= meta_parameters.max_iter_without_improvement) {
 			#ifdef TS_LOG
-			// std::cout << "Iterations since improvement reached " << std::to_string(meta_parameters.max_iter_without_improvement) << " - shaking..." << std::endl;
+			std::cout << "Iterations since improvement reached " << std::to_string(meta_parameters.max_iter_without_improvement) << " - shaking..." << std::endl;
 			#endif
 			// current_solution.move_k_facilities(30);
 			current_solution = Model::generate_random_solution();
