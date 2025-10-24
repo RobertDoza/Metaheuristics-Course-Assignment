@@ -13,7 +13,7 @@ std::string Statistics::to_string() const {
     buffer << "Best time: " << std::to_string(global_statistics.best_time) << std::endl;
     buffer << "Total time: " << std::to_string(global_statistics.total_time) << std::endl;
     buffer << "Number of evaluations: " << global_statistics.fitness_evaluation_count << std::endl;
-    buffer << "Iteration of last improvement: " << global_statistics.iteration_of_last_improvement << std::endl;
+    buffer << "Iteration of last improvement: " << global_statistics.iteration_of_last_improvement;
 
     return buffer.str();
 }
