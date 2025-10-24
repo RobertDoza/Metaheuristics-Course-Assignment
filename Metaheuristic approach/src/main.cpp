@@ -53,7 +53,6 @@ void test_tabu_search(const std::string& instance_filepath, unsigned seed) {
     std::cout << "Best fitness: " << std::to_string(global_statistics.best_fitness) << std::endl;
     std::cout << "Best time: " << std::to_string(global_statistics.best_time) << std::endl;
     std::cout << "Total time: " << std::to_string(global_statistics.total_time) << std::endl;
-    std::cout << "Number of iterations: " << global_statistics.num_iterations << std::endl;
     std::cout << "Number of evaluations: " << global_statistics.fitness_evaluation_count << std::endl;
     std::cout << "Iteration of last improvement: " << global_statistics.iteration_of_last_improvement << std::endl;
 }
