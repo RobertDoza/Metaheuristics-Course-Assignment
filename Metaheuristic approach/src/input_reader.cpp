@@ -12,7 +12,7 @@ ModelParameters InputReader::read_input(const std::string& filename) {
 		throw std::runtime_error("Unable to open file");
 	}
 	
-	int i, j, t, p;
+	std::size_t i, j, t, p;
 	double s;
 	
 	i = read_int(in);
@@ -20,10 +20,6 @@ ModelParameters InputReader::read_input(const std::string& filename) {
 	t = read_int(in);
 	s = read_double(in);
 	p = read_int(in);
-	
-	if (i <= 0 || j <= 0 || t <= 0 || s <= 0.0 || p <= 0) {
-		throw std::runtime_error("Invalid values in the header");
-	}
 	
 	/*
 	std::cout << "I = " << i << "\n";

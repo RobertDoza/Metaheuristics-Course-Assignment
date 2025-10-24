@@ -116,8 +116,8 @@ double Model::_calculate_fitness(const Solution& s) const {
 	
 	std::vector<std::vector<int>> nodes_per_period = s.get_nodes_per_period();
 	
-    for (int t = 0; t < _parameters.num_time_periods; t++) {
-        for (int i = 0; i < _parameters.num_demand_nodes; i++) {
+    for (std::size_t t = 0; t < _parameters.num_time_periods; t++) {
+        for (std::size_t i = 0; i < _parameters.num_demand_nodes; i++) {
             for (const int node : nodes_per_period[t]) {
                 if (_parameters.distance_matrix[node][i] < _parameters.coverage_radius ) {
                     sum += _parameters.population_matrix[i][t];

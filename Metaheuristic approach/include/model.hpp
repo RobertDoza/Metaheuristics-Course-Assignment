@@ -5,11 +5,11 @@
 #include "solution.hpp"
 
 struct ModelParameters {
-	int num_demand_nodes;
-	int num_eligible_sites;
-	int num_time_periods;
+	std::size_t num_demand_nodes;
+	std::size_t num_eligible_sites;
+	std::size_t num_time_periods;
 	double coverage_radius;
-	int target_num_sites;
+	std::size_t target_num_sites;
 	std::vector<std::vector<double>> population_matrix;
 	std::vector<std::vector<double>> distance_matrix;
 
