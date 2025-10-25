@@ -9,7 +9,7 @@
 #include "parameters.hpp"
 #include "statistics.hpp"
 
-#define TS_LOG
+// #define TS_LOG
 
 const double negative_infinity = - std::numeric_limits<double>::infinity();
 
